@@ -251,6 +251,7 @@ Das von interaktiven Anwendungen bekannte Model-View-Controller-Muster wird häu
 - Model: Kapselt die Datenhaltung und auf den Daten definierte Operationen in Oberflächen- oder Interface-unabhängiger Weise.
 - View: Setzt die Berechnungsergebnisse in Darstellungen um. Im Framework sind dies die Templates sowie die statischen Dokumente.
 
+![Image of MVC](https://github.com/verrannt/WebTech2017Documentation/blob/master/imgs/img1_mvc.png)
 
 ---
 

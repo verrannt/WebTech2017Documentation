@@ -1,4 +1,4 @@
-# Kapitel 3: HTTP
+# Kapitel 3: HTTP Requests und Responses
 
 1. [HTTP Nachrichten](#http-nachrichten)
 2. [HTTP Request](#http-request)
