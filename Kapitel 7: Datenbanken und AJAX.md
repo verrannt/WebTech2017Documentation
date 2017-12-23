@@ -1,4 +1,4 @@
-# Woche 7: Datenbanken und AJAX
+# Kapitel 7: Datenbanken und AJAX
 
 1. [SQL-Datenbanken](#sql-datenbanken)
 2. [NoSQL-Datenbanken](#nosql-datenbanken)
@@ -237,6 +237,20 @@ for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
 
 [Zurück nach oben](#woche-7-datenbanken-und-ajax)
 ## MVC in Webanwendungen
+
+### Model-View-Controller-Muster für Web-Anwendungen
+
+Das von interaktiven Anwendungen bekannte Model-View-Controller-Muster wird häufig auch auf serverseitige Web-Anwendungen angewendet. Dabei werden typischerweise folgende Komponenten identifiziert:
+
+
+- Browser: Die Clientseite spielt in dieser Betrachtung keine Rolle (obwohl dort natürlich Darstellung und Interaktion passieren)
+- Webserver: Entgegennehmen und Parsen von Requests, Ausliefern von Responses
+- Routes: Liste der Routen (Regex-Pattern und registrierte Callback-Methoden)
+- Dispatcher: Mechanismus, der die passende Route auswählt und die zugehörige Callback-Methode aufruft
+- Controller: Komponente, die die Interaktionsdaten (Request) mit den Anwendungsdaten (Model) zusammenbringt und an die Darstellungskomponente (View) übergibt. Im bislang verwendeten Server-Framework sind die mit den Routen registrierten App-Methoden die Controller-Komponenten.
+- Model: Kapselt die Datenhaltung und auf den Daten definierte Operationen in Oberflächen- oder Interface-unabhängiger Weise.
+- View: Setzt die Berechnungsergebnisse in Darstellungen um. Im Framework sind dies die Templates sowie die statischen Dokumente.
+
 
 ---
 

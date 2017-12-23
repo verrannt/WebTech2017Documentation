@@ -1,3 +1,18 @@
+# Kapitel 3: HTTP
+
+1. [HTTP Nachrichten](#http-nachrichten)
+2. [HTTP Request](#http-request)
+    1. [HTTP Methoden](#http-methoden)
+    2. [Request Header](#request-header)
+        1. [Host](#host)
+        2. [Accept](#accept)
+        3. [Media-Types](#media-types)
+3. [HTTP Response](#http-response)
+    1. [Status Codes](#status-codes)
+    2. [Response Header](#response-header)
+        1. [Date](#date)
+        2. [Content-Type](#content-type)
+
 ## HTTP Nachrichten
 HTTP-Nachrichten (messages) sind Anfragen (Request) oder Antworten (Response). Beide verwenden ein generisches Nachrichtenformat, sind also strukturell ähnlich aufgebaut.
 
@@ -153,9 +168,3 @@ Beispiel:
 
 #### Content-Type
 Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angehängte Entity ist. Erlaubte Medientypen entsprechen denen von __Accept__, erlauben aber keine Wildcards.
-
-----
-
-### NOTE: Several chapters are missing here
-
-----
