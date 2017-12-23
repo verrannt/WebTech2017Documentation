@@ -163,12 +163,11 @@ Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angeh
 
 # Woche 7: Datenbanken und AJAX
 
-1. [SQL-Datenbanken](#sql-datenbanken)
-2. [NoSQL-Datenbanken](#nosql-datenbanken)
-3. [MVC in Webanwendungen](#mvc)
-4. [AJAX](#ajax)
+**[SQL-Datenbanken](#sql-datenbanken)**<br>
+**[NoSQL-Datenbanken](#nosql-datenbanken)**<br>
+**[MVC in Webanwendungen](#mvc)**<br>
+**[AJAX](#ajax)**<br>
 
-<div id='sql-datenbanken'/>
 
 ## SQL-Datenbanken
 
@@ -267,7 +266,6 @@ for row in conn.execute("SELECT * FROM person WHERE firstname=?;", [fn]):
     print(row)
 ```
 
-<div id='nosql-datenbanken'/>
 
 ## NoSQL-Datenbanken
 
