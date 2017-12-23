@@ -163,10 +163,10 @@ Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angeh
 
 # Woche 7: Datenbanken und AJAX
 
-**[SQL-Datenbanken](#sql-datenbanken)**<br>
-**[NoSQL-Datenbanken](#nosql-datenbanken)**<br>
-**[MVC in Webanwendungen](#mvc)**<br>
-**[AJAX](#ajax)**<br>
+1. **[SQL-Datenbanken](#sql-datenbanken)**<br>
+2. **[NoSQL-Datenbanken](#nosql-datenbanken)**<br>
+3. **[MVC in Webanwendungen](#mvc)**<br>
+4. **[AJAX](#ajax)**<br>
 
 
 ## SQL-Datenbanken
