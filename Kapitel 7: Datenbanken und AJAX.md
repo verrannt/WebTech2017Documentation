@@ -5,7 +5,7 @@
 3. [MVC in Webanwendungen](#mvc)
 4. [AJAX](#ajax)
 
-
+[zurück](#woche-7)
 ## SQL-Datenbanken
 
 ### Datenbanken in Web-Anwendungen
@@ -103,7 +103,7 @@ for row in conn.execute("SELECT * FROM person WHERE firstname=?;", [fn]):
     print(row)
 ```
 
-
+[zurück](#woche-7)
 ## NoSQL-Datenbanken
 
 ### SQL vs. NoSQL
@@ -230,6 +230,8 @@ for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
 # will print 'Bramsche'
 ```
 
+[zurück](#woche-7)
 ## MVC in Webanwendungen
 
+[zurück](#woche-7)
 ## AJAX
