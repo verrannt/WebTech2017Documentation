@@ -164,9 +164,9 @@ Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angeh
 # Woche 7: Datenbanken und AJAX
 
 1. [SQL-Datenbanken](#sql-datenbanken)
-2. [NoSQL-Datenbanken](#nosql-datenbanken)
-3. [MVC in Webanwendungen](#mvc)
-4. [AJAX](#ajax)
+- [NoSQL-Datenbanken](#nosql-datenbanken)
+- [MVC in Webanwendungen](#mvc)
+- [AJAX](#ajax)
 
 <div id='sql-datenbanken'/>
 
@@ -188,7 +188,7 @@ Die typische Persistenz-Schicht für eine Web-Anwendung ist eine Datenbank, alle
 INSERT INTO table (column1, column2, column3) VALUES (value1, value2, value3)
 ```
 
-INSERT-Statements fügen neue Zeilen in eine einzelne Tabelle ein. Je nachdem, ob Spalten als verpflichtend definiert wurden, müssen alle oder nur einige der Spalten mit Werten belegt werden. Spaltennamen werden ohne Quotes oder ggf. mit Bakcquote `....` geschrieben, String-Werte mit einfachen Quote '...', Zahlenwerte ohne Anführungszeichen.
+INSERT-Statements fügen neue Zeilen in eine einzelne Tabelle ein. Je nachdem, ob Spalten als verpflichtend definiert wurden, müssen alle oder nur einige der Spalten mit Werten belegt werden. Spaltennamen werden ohne Quotes oder ggf. mit Backquote `....` geschrieben, String-Werte mit einfachen Quote '...', Zahlenwerte ohne Anführungszeichen.
 
 #### Auslesen von Datenbankeinträge (**READ**):
 
@@ -267,9 +267,24 @@ for row in conn.execute("SELECT * FROM person WHERE firstname=?;", [fn]):
     print(row)
 ```
 
-<div id='nosql-datenbanken'/>
+## NoSQL-Datenbanken <div id='nosql-datenbanken'/>
 
-## NoSQL-Datenbanken
+### ACID vs. BASE
+
+Relationale Datenbank sind auf Datenintegrität, korrekte Modellierung, Transaktionssicherheit und Konsistenz ausgelegt. Diese Eigenschaften werden häufig unter dem Acronym ACID zusammengefasst:
+
+    - A - Atomicity: Zusammengehörige Aktionen gelingen entweder vollständig oder gar nicht.
+    - C - Consistency: Verweise innerhalb der Datenbank sind jederzeit korrekt (referentielle Integrität)
+    - I - Isolation: Transaktionen beeinflussen sich nicht gegenseitig, während sie ablaufen
+    - D - Durability: Die Daten werden dauerhaft gespeichert.
+
+Allerdings haben relationale Datenbanken auch einige Nachteile, die in den Folgeabschnitten beschrieben werden. Als Alternative haben sich vor allem für Web-Anwendungen so genannte NoSQL-Datenbanken etabliert, die in einigen wichtigen Punkten von relationalen Datenbanken abweichen. Sie werden häufig mit dem Acronym BASE beschrieben:
+
+    - BA - Basically available: Die Daten sind immer verfügbar, aber ggf. nicht in der aktuellsten Version
+    - S - Soft state: Die Daten sind nicht immer konsistent
+    - E - Eventual consistency: Aber irgendwann werden sie wieder konsistent
+
+Nicht alle NoSQL-Datenbanken erfüllen all diese Kriterien, sie machen aber eines deutlich: Für ein auf Sicherheit und Konsistenz ausgelegtes Datenbanksystem (z.B. für die Führung von Bankkonten) sind diese Eigenschaften absolut unerwünscht. In Web-Anwendungen sieht die Lage aber oft anders aus: Ob Sie wirklich das neueste Facebook-Posting sofort oder erst in einigen Minuten sehen, ist meist verschmerzbar, genauso ist die ganz korrekte Zahl der angezeigten Likes nicht entscheidend.
 
 <div id='mvc'/>
 
