@@ -164,9 +164,9 @@ Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angeh
 # Woche 7: Datenbanken und AJAX
 
 1. [SQL-Datenbanken](#sql-datenbanken)
-- [NoSQL-Datenbanken](#nosql-datenbanken)
-- [MVC in Webanwendungen](#mvc)
-- [AJAX](#ajax)
+2. [NoSQL-Datenbanken](#nosql-datenbanken)
+3. [MVC in Webanwendungen](#mvc)
+4. [AJAX](#ajax)
 
 <div id='sql-datenbanken'/>
 
@@ -258,16 +258,30 @@ curs = conn.cursor()
 curs.execute(sql)
 conn.commit()
 
-sql = "INSERT INTO person (firstname, lastname, email) VALUES ('Tobias', 'Thelen', 'tthelen@uos.de')"
+sql = "INSERT INTO person (firstname, lastname, email) VALUES ('Hans', 'Meier', 'hmeier@email.de')"
 conn.execute(sql)
 conn.commit()
 
-fn = "Tobias"
+fn = "Hans"
 for row in conn.execute("SELECT * FROM person WHERE firstname=?;", [fn]):
     print(row)
 ```
 
-## NoSQL-Datenbanken <div id='nosql-datenbanken'/>
+<div id='nosql-datenbanken'/>
+
+## NoSQL-Datenbanken
+
+### SQL vs. NoSQL
+
+In **relationalen Datenbanksystemen** sind **jederzeit beliebige Verknüpfungen** zwischen allen enthaltenen Daten möglich (dynamisch erzeugte Queries mit JOIN-Klauseln). Die Modellierung ist (wenn sie gewissen Anforderungen genügt) hinreichend allgemein, dass viele verschiedene Anwendungsfälle mit der Modellierung abbildbar sind.
+
+Der damit erkaufte **Nachteil** ist: Es ist nicht möglich, die Datenbank zu partitionieren, d.h. die Datenbank auf viele Server zu verteilen, ohne die Möglichkeit beliebiger JOINs aufzugeben oder zumindest sehr ineffizient zu machen. In Webanwendungen (denken Sie an Datenmengen von Google oder Facebook) werden die Grenzen relationaler Datenbanken aber mit Leichtigkeit gesprengt.
+
+**NoSQL-Datenbanken** hingegen sind für die Verarbeitung **großer und sehr großer Datenmengen** ausgelegt. Serverkapazität kann erweitert werden, ohne dass die Leistungsfähigkeit der Datenbank beeinträchtigt wird.
+
+**Erkauft wird dieser Vorteil durch den Verzicht auf JOINs**. Es ist nicht möglich, die enthaltenen Daten auf effiziente Weise beliebig innerhalb des Datenbanksystems zu verknüpfen (man stelle sich vor, sie lägen ohnehin auf verschiedenen Servern). Bei der Modellierung muss daher in stärkerem Maße als bei SQL-Datenbanken **der spätere Anwendungszweck berücksichtigt werden**.
+
+NoSQL-Datenbanken sind zudem **häufig schemafrei**, d.h. sie benötigen keine strenge Definition eines Datenbankaufbaus, sondern können jederzeit auch abweichende oder erweiterte Datensätze speichern. Dafür muss dann aber die verarbeitende Anwendung stärker darauf achten, ob die Daten dem erwarteten Format entsprechen.
 
 ### ACID vs. BASE
 
@@ -285,6 +299,101 @@ Allerdings haben relationale Datenbanken auch einige Nachteile, die in den Folge
     - E - Eventual consistency: Aber irgendwann werden sie wieder konsistent
 
 Nicht alle NoSQL-Datenbanken erfüllen all diese Kriterien, sie machen aber eines deutlich: Für ein auf Sicherheit und Konsistenz ausgelegtes Datenbanksystem (z.B. für die Führung von Bankkonten) sind diese Eigenschaften absolut unerwünscht. In Web-Anwendungen sieht die Lage aber oft anders aus: Ob Sie wirklich das neueste Facebook-Posting sofort oder erst in einigen Minuten sehen, ist meist verschmerzbar, genauso ist die ganz korrekte Zahl der angezeigten Likes nicht entscheidend.
+
+### MongoDB
+
+MongoDB ist eine so genannte dokumentorientierte Datenbank. In einer solchen Datenbank sollen die von der Anwendung benötigten Daten so abgelegt werden, dass sie aus Anwendungssicht vollständige Dokumente ergeben.
+
+MongoDB repräsentiert seine Daten im BSON-Format, einem binären JSON-Format. Die darstellbaren Typen entsprechen damit nahezu 1:1 JSON. Eine Peron könnte auf diese Weise wie folgt definiert werden:
+
+```javascript
+{ 'id': f38aad43,
+  'firstname': 'Tobias',
+  'lastname': 'Thelen',
+  'hobbies': ['Singen', 'Springen', 'Fröhlich sein'],
+  'teams': [{ 'name': 'Tigers' }, { 'name': 'Lions' }]
+}
+```
+
+Alle Personen würden dann in einer Collection *persons* zusammengefasst werden.
+
+Die Darstellung der Hobbies und Teams ist in relationalen Datenbanken auf diese Weise nicht möglich. Allerdings können auch hier nicht beliebige Strukturen abgebildet werden: In den Teams wiederum Personen-Dokumente einzubetten führt zu zirkulären Definitionen.
+
+An dieser Stelle müssen also Referenzen in Form von IDs verwendet werden. Dazu könnten z.B. die Team-Subdokumente durch ihre IDs ersetzt werden. Dann müssen die Daten auf Anwendungsebene zusammengefügt werden, d.h. nach mehreren Einzelabfragen werden "Application Level Joins" vorgenommen.
+
+```javascript
+// a person:
+{ 'id': f38a,
+  'teams': [ea89, u9id]
+}
+// a team:
+{ 'id': ea89,
+  'name': 'tigers',
+  'members': [f38a, ...]
+}
+```
+
+### MongoDB-Abfragen
+
+Als Abfragesprache dienen ebenfalls BSON-Dokumente. Es wird dann geprüft, zu welchen Dokumenten in der gewählten Collection das Musterdokument passt.
+
+Beispiele:
+
+```javascript
+// Alle Dokumente mit Feld "firstname" und Wert "Tobias"
+{ "firstname": "Tobias" }
+// Alle Dokumente bei denen "Singen" in der Liste der Hobbies vertreten ist
+{ "hobbies": "Singen" }
+// Alle Dokumente, die Singen oder Brieftauben züchten als ein Hobby aufführen (oder-verknüpft)
+{ "hobbies": { "$in" : [ "Singen", "Brieftauben züchten" ] } }
+// Alle Personen, die ein age-Attribut haben und älter als 25 sind ($gt = "greater than", $lt = "lower than")
+{"age": { "$gt": 25, "$lt": 44 } }
+```
+
+Es ist **nicht** möglich, auf Dokumente aus verschiedenen Collections zuzugreifen.
+
+### MongoDB in Python
+
+Mit der **pymongo**-Bibliothek (separat zu installieren) können Mongo-DB-Datenbanken auf einfache Weise von Python aus genutzt werden. BSON-Dokumente werden von der Bibliothek in Python-Dictionaries umgewandelt und umgekehrt.
+
+Das Vorgehen entspricht immer folgendem Schema:
+
+1. Verbindung zum Datenbankserver herstellen und Client initialisieren (Zeile 3)
+2. Datenbank auswählen. Wenn diese Datenbank nicht existiert, wird sie angelegt (Zeile 4)
+3. Collection innerhalb der Datenbank auswählen (wenn inexistent wird sie angelegt) und CRUD-Operationen durchführen (Zeile 6ff.)
+
+Die typischen Operationen **CREATE**, **READ**, **UPDATE**, **DELETE** (CRUD) werden durch vier Methoden eines Collection-Objektes abgebildet:
+
+**CREATE** = collection.*insert*(BSON-Dokument)
+
+**READ** = collection.*find*(BSON-Such-Dokument)
+
+**UPDATE** = collection.*update*(BSON-Such-Dokument, BSON-Dokument)
+
+**DELETE** = collection.*delete*(BSON-Such-Dokument)
+
+#### Bespiel-Code:
+
+```python
+import pymongo
+
+client = pymongo.MongoClient('mongodb://localhost:27017/')
+db = client['database-name']
+
+db['staedte'].insert({'name': 'Osnabrück', 'inhabitants': 170000,
+                      'quarters': ['Wüste', 'Hellern', 'Voxtrup']
+                      'sights': [ {'name': 'Rathaus', 'age': 505},
+                                  {'name': 'Schloss', 'age': 449} ]})
+
+db['staedte'].insert({'name': 'Bramsche', 'inhabitants': 32000,
+                      'quarters': ['Bramsche', 'Entger', 'Kalkriese']
+                      'sights': [ {'name': 'Varus-Schlacht', 'age': 2007}]})
+
+for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
+    print(item['name'])
+
+# will print 'Bramsche'
+```
 
 <div id='mvc'/>
 
