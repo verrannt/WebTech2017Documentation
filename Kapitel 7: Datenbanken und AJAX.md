@@ -104,7 +104,8 @@ for row in conn.execute("SELECT * FROM person WHERE firstname=?;", [fn]):
     print(row)
 ```
 
-[Zurück nach oben](#woche-7-datenbanken-und-ajax)
+[Zurück nach oben](#kapitel-7-datenbanken-und-ajax)
+
 ---
 
 ## NoSQL-Datenbanken
@@ -232,7 +233,8 @@ for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
 
 # will print 'Bramsche'
 ```
-[Zurück nach oben](#woche-7-datenbanken-und-ajax)
+[Zurück nach oben](#kapitel-7-datenbanken-und-ajax)
+
 ---
 
 ## MVC in Webanwendungen
@@ -277,7 +279,8 @@ t.store()
 Type.delete(id=[known id])
 ```
 
-[Zurück nach oben](#woche-7-datenbanken-und-ajax)
+[Zurück nach oben](#kapitel-7-datenbanken-und-ajax)
+
 ---
 
 ## AJAX
@@ -311,4 +314,4 @@ Aus Sicherheitsgründen (die später genauer erläutert werden) dürfen AJAX-Req
 
 Die Herkunft (Origin) setzt sich zusammen aus: Schema, Host und Port.
 
-[Zurück nach oben](#woche-7-datenbanken-und-ajax)
+[Zurück nach oben](#kapitel-7-datenbanken-und-ajax)
