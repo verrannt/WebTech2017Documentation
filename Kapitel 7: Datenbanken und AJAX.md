@@ -243,17 +243,70 @@ for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
 Das von interaktiven Anwendungen bekannte Model-View-Controller-Muster wird häufig auch auf serverseitige Web-Anwendungen angewendet. Dabei werden typischerweise folgende Komponenten identifiziert:
 
 
-- Browser: Die Clientseite spielt in dieser Betrachtung keine Rolle (obwohl dort natürlich Darstellung und Interaktion passieren)
-- Webserver: Entgegennehmen und Parsen von Requests, Ausliefern von Responses
-- Routes: Liste der Routen (Regex-Pattern und registrierte Callback-Methoden)
-- Dispatcher: Mechanismus, der die passende Route auswählt und die zugehörige Callback-Methode aufruft
-- Controller: Komponente, die die Interaktionsdaten (Request) mit den Anwendungsdaten (Model) zusammenbringt und an die Darstellungskomponente (View) übergibt. Im bislang verwendeten Server-Framework sind die mit den Routen registrierten App-Methoden die Controller-Komponenten.
-- Model: Kapselt die Datenhaltung und auf den Daten definierte Operationen in Oberflächen- oder Interface-unabhängiger Weise.
-- View: Setzt die Berechnungsergebnisse in Darstellungen um. Im Framework sind dies die Templates sowie die statischen Dokumente.
+- **Browser**: Die Clientseite spielt in dieser Betrachtung keine Rolle (obwohl dort natürlich Darstellung und Interaktion passieren)
+- **Webserver**: Entgegennehmen und Parsen von Requests, Ausliefern von Responses
+- **Routes**: Liste der Routen (Regex-Pattern und registrierte Callback-Methoden)
+- **Dispatcher**: Mechanismus, der die passende Route auswählt und die zugehörige Callback-Methode aufruft
+- **Controller**: Komponente, die die Interaktionsdaten (Request) mit den Anwendungsdaten (Model) zusammenbringt und an die Darstellungskomponente (View) übergibt. Im bislang verwendeten Server-Framework sind die mit den Routen registrierten App-Methoden die Controller-Komponenten.
+- **Model**: Kapselt die Datenhaltung und auf den Daten definierte Operationen in Oberflächen- oder Interface-unabhängiger Weise.
+- **View**: Setzt die Berechnungsergebnisse in Darstellungen um. Im Framework sind dies die Templates sowie die statischen Dokumente.
 
 ![Image of MVC](https://github.com/verrannt/WebTech2017Documentation/blob/master/imgs/img1_mvc.png)
 
+### Models
+
+In Web-Anwendungen wird die Datenbankschicht häufig abstrahiert und vor dem Controller-Code versteckt. Als Interface gegenüber Code, der das Model nutzt, dienen Objekte, d.h. **die Datenbankinhalte werden auf Objekte abgebildet**.
+
+Die CRUD-Operationen werden häufig wie folgt abgebildet (Type steht dabei für eine Datenbank-Tabelle oder -Collection):
+
+```python
+# CREATE
+t = new Type(field1=value1, field2=value2, ...)
+t.store()
+
+# READ
+ts = Type.find(field1=value1, field2=value2, ...)
+for t in ts:
+    ... do something with Type object t...
+
+# UPDATE
+t = new Type(id=[known id])  # restore from db
+t.field1=value1
+t.store()
+
+# DELETE
+Type.delete(id=[known id])
+```
 ---
 
 [Zurück nach oben](#woche-7-datenbanken-und-ajax)
 ## AJAX
+
+**Asynchronous Javascript and XML**
+
+Unter AJAX versteht man den Einsatz von http-Requests, die nicht vom Browser initiiert werden, um aus der Response ein neuen Dokument zu konstruieren und das aktuelle Dokument (sowie ggf. laufenden Javascript-Code) vollständig ersetzt. Stattdessen werden die Requests von Javascript-Code aus abgesandt und die Responses sind dann wiederum dem Javascript-Code zugänglich.
+
+Auf diese Weise kann dynamisch generiert der Server befragt oder informiert werden und die Resultate können flexibel weiterverarbeitet werden: Zur Veränderung interner Zustände, zur Manipulation des DOM-Trees etc.
+
+Die sich durch AJAX-Requests eröffnenden Möglichkeiten haben ca. 2004/2005 einen erheblichen Schub für die Entwicklung interaktiverer und somit attraktiverer Web-Anwendungen geleistet. Die Möglichkeiten von Web-Anwendungen haben sich damit denen von Desktop-Anwendungen ein Stück weit angenähert.
+
+### Das XMLHttpRequest-Objekt
+
+Letztendlich steckt hinter AJAX nur ein einziges Javascript-Objekt: XMLHttpRequest. Das Objekt wurde von Microsoft erfunden und von allen anderen Browser-Herstellern übernommen.
+
+Die API ist relativ simpel:
+
+```javascript
+var oReq = XMLHttpRequest();
+oReq.addEventListener("load", function () { console.log(this.responseText); });
+oReq.open("http://localhost:8080/ajax/team/77");
+oReq.send();
+```
+
+Mit open wird der Request vorbereitet, mit send abgeschickt. Gelingt er, wird das Event "load" aktiviert und entsprechend registrierte EventListener aufgerufen. Mittels das Attribut responseText enthält dann den Response-Body als Text, das Attribut responseType zeigt an, welchen Typs der Response-Body ist. Üblich sind heutzutage HTML für serverseitig erzeugte HTML-Teile und JSON für Daten, die clientseitig noch aufbereitet werden müssen. Responses ohne Body sind üblich für Aktionen, die auf dem Server nur angestoßen werden (z.B. Verzeichnen der Information dass ein Nutzer eine News gelesen hat).
+
+### Same-Origin-Policy
+
+Aus Sicherheitsgründen (die später genauer erläutert werden) dürfen AJAX-Requests nur die Herkunft des aktuellen Dokumentes gesendet werden.
+
+Die Herkunft (Origin) setzt sich zusammen aus: Schema, Host und Port.
