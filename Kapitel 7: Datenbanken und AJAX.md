@@ -2,7 +2,7 @@
 
 1. [SQL-Datenbanken](#sql-datenbanken)
 2. [NoSQL-Datenbanken](#nosql-datenbanken)
-3. [MVC in Webanwendungen](#mvc)
+3. [MVC in Webanwendungen](#mvc-in-webanwendungen)
 4. [AJAX](#ajax)
 
 ---
