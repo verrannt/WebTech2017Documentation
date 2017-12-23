@@ -104,9 +104,9 @@ for row in conn.execute("SELECT * FROM person WHERE firstname=?;", [fn]):
     print(row)
 ```
 
+[Zurück nach oben](#woche-7-datenbanken-und-ajax)
 ---
 
-[Zurück nach oben](#woche-7-datenbanken-und-ajax)
 ## NoSQL-Datenbanken
 
 ### SQL vs. NoSQL
@@ -232,10 +232,9 @@ for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
 
 # will print 'Bramsche'
 ```
-
+[Zurück nach oben](#woche-7-datenbanken-und-ajax)
 ---
 
-[Zurück nach oben](#woche-7-datenbanken-und-ajax)
 ## MVC in Webanwendungen
 
 ### Model-View-Controller-Muster für Web-Anwendungen
@@ -277,9 +276,10 @@ t.store()
 # DELETE
 Type.delete(id=[known id])
 ```
----
 
 [Zurück nach oben](#woche-7-datenbanken-und-ajax)
+---
+
 ## AJAX
 
 **Asynchronous Javascript and XML**
@@ -310,3 +310,5 @@ Mit open wird der Request vorbereitet, mit send abgeschickt. Gelingt er, wird da
 Aus Sicherheitsgründen (die später genauer erläutert werden) dürfen AJAX-Requests nur die Herkunft des aktuellen Dokumentes gesendet werden.
 
 Die Herkunft (Origin) setzt sich zusammen aus: Schema, Host und Port.
+
+[Zurück nach oben](#woche-7-datenbanken-und-ajax)
