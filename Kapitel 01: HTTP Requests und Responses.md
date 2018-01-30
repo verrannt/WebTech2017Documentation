@@ -31,7 +31,7 @@ Der message-body enthält eine __entity__. Eine entity besteht aus _entity-heade
     entity = (entity-header CRLF)
              entity-body
 
-[Zurück nach oben](#kapitel-1-http-requests-und-responses)
+[Zurück nach oben](#kapitel-3-http-requests-und-responses)
 ---
 
 ## HTTP Request
@@ -115,7 +115,7 @@ text/\* akzeptiert beliebige Text-Typen
 
 \*/\* akzeptiert beliebige Typen
 
-[Zurück nach oben](#kapitel-1-http-requests-und-responses)
+[Zurück nach oben](#kapitel-3-http-requests-und-responses)
 ---
 
 ## HTTP Response
@@ -177,4 +177,4 @@ Beispiel:
 #### Content-Type
 Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angehängte Entity ist. Erlaubte Medientypen entsprechen denen von __Accept__, erlauben aber keine Wildcards.
 
-[Zurück nach oben](#kapitel-1-http-requests-und-responses)
+[Zurück nach oben](#kapitel-3-http-requests-und-responses)
