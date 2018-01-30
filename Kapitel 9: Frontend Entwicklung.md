@@ -1,32 +1,21 @@
 # Kapitel 9: Frontend Entwicklung
 
 * [Javascript](#javascript)
-  * 1.1 [Geschichte](#geschichte)
-  * 1.2 [Lodash](#lodash)
-  * 1.3 [jQuery](#jquery)
+  * [Geschichte](#geschichte)
+  * [Lodash](#lodash)
+  * [jQuery](#jquery)
 * [Code-Abhängigkeiten](#code-abhängigkeiten)
   * [Script-Tags](#script-tags)
   * [Das Module-Pattern](#das-module-pattern)
   * [CommonJS, require.js und AMD-Module](#commonjs-requirejs-und-amd-module)
-3. [Build-Prozess (webpack)](#build-prozess-webpack)
-  1. [Code-Management und Build-Prozess](#code-management-und-build-prozess)
-  2. [Development-Server](#development-server)
-  3. [Webpack: Kernkonzepte](#webpack-kernkonzepte)
-  4. [Webpack: Entwicklungsworkflow](#webpack-entwicklungsworkflow)
-  5. [3rd-Party-Bibliotheken mit Webpack nutzen](#3rd-party-bibliotheken-mit-webpack-nutzen)
+* [Build-Prozess (webpack)](#build-prozess-webpack)
+  * [Code-Management und Build-Prozess](#code-management-und-build-prozess)
+  * [Development-Server](#development-server)
+  * [Webpack: Kernkonzepte](#webpack-kernkonzepte)
+  * [Webpack: Entwicklungsworkflow](#webpack-entwicklungsworkflow)
+  * [3rd-Party-Bibliotheken mit Webpack nutzen](#3rd-party-bibliotheken-mit-webpack-nutzen)
 
 ---
-
-<div class="table-of-contents">
-  <ol>
-    <li><a href="#heading">Heading</a>
-      <ol>
-        <li><a href="#sub-heading-1">Sub heading 1</a></li>
-        <li><a href="#sub-heading-2">Sub heading 2</a></li>
-      </ol>
-    </li>
-  </ol>
-</div>
 
 ## Javascript
 
