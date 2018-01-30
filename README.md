@@ -6,4 +6,6 @@ Teilweise Dokumentation des Informatik Kurses "Web-Technologien", angeboten an d
 
 Der Code zu den entsprechenden Kapiteln findet sich [im öffentlichen Kursrepository](https://github.com/tthelen/webtech17-public).
 
+Die Videos zum Kurs sind öffentlich verfügbar auf YouTube unter [diesem Link](https://www.youtube.com/playlist?list=PLXlq-maVz42-IMTYwCzRPe4LFfYGiFYN9).
+
 An einigen Stellen wurden Rechtschreibfehler ausgebessert. Es wird kein Anspruch auf Vollständigkeit erhoben.
