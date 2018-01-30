@@ -4,4 +4,6 @@
 
 Teilweise Dokumentation des Informatik Kurses "Web-Technologien", angeboten an der Universität Osnabrück von Prof. Tobias Thelen im Wintersemester 2017/18.
 
-Es wird kein Anspruch auf Vollständigkeit erhoben.
+Der Code zu den entsprechenden Kapiteln findet sich [im öffentlichen Kursrepository](https://github.com/tthelen/webtech17-public).
+
+An einigen Stellen wurden Rechtschreibfehler ausgebessert. Es wird kein Anspruch auf Vollständigkeit erhoben.
