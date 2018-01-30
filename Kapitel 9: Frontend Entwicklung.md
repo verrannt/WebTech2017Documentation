@@ -1,9 +1,9 @@
 # Kapitel 9: Frontend Entwicklung
 
 1. [Javascript](#javascript)
-  1. [Geschichte](#geschichte)
-  2. [Lodash](#lodash)
-  3. [jQuery](#jquery)
+  * [Geschichte](#geschichte)
+  * [Lodash](#lodash)
+  * [jQuery](#jquery)
 2. [Code-Abhängigkeiten](#code-abhängigkeiten)
   1. [Script-Tags](#script-tags)
   2. [Das Module-Pattern](#das-module-pattern)
