@@ -10,7 +10,6 @@
   * [File-Server Implementation](#file-server-implementation)
   * [File-Client Implementation](#file-client-implementation)
 
-
 ---
 
 ## Web-Services
@@ -68,6 +67,7 @@ REST-Interfaces für Web-Anwendungen werden sehr unterschiedlich umgesetzt. Um a
 
 **Achtung:** Auch, wenn es oft wertend verwendet wird, fällt das REST-Maturity-Model keine Qualitätsurteile über ein Interface. Es kann gute Gründe für eine Umsetzung auf jedem der 4 Level geben, allerdings sollten sich die Entwickler bewusst sein, was sie tun und wo die Unterschiede zwischen den verschiedenen Realisierungsoptionen liegen.
 
+[Zurück nach oben](#kapitel-11-web-services-und-rest)
 ---
 
 ## File-Server
@@ -149,3 +149,5 @@ Die Javascript-Anwendung stellt eine so genannte "Single Page App" dar. Das bede
   * ggf. weitere statische Dateien wie Style-Sheets, Bilder etc.
 * "Single Page" bedeutet, dass bei der Arbeit mit der Anwendung niemals eine neue HTML-Datei vom Browser als Haupt-Request angefordert wird, d.h. es wird niemals ein neues Document-Object erzeugt.
 * "Single Page" bedeutet NICHT, dass die Anwendung aus nur einer Ansicht besteht. Der Javascript-Code kann die Ansicht beliebig verändern und alle Interaktionen abbilden, die auch mit einer rein serverseitigen Anwendung und vielen neuen Requests möglich sind.
+
+[Zurück nach oben](#kapitel-11-web-services-und-rest)

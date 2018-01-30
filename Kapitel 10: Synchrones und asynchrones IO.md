@@ -22,6 +22,7 @@ Diese Art des Programmierens ist eng mit eventbasierter Programmierung verknüpf
 
 Wichtig ist, dass ein einlaufendes Event niemals die Abarbeitung eines laufenden Eventhandlers unterbricht, sondern hinten an die Event-Queue angefügt wird. Deshalb müssen Anwendungen, um reaktiv zu bleiben, darauf achten nur kurze, schnell abzuarbeitende Event-Handler zu verwenden. Länger dauernde Berechnungen müssen ggf. aufgeteilt werden und per defer jeweils wieder hinten an die Queue angehängt werden.
 
+[Zurück nach oben](#kapitel-10-synchrones-und-asynchrones-io)
 ---
 
 ## node.js und express.js
@@ -293,7 +294,7 @@ function loginview(req, res, next) {
 // logging in an out
 app.get('/login', loginview);
 app.post('/login', passport.authenticate('local', { successReturnToOrRedirect: '/',
-                                                    failureRedirect: '/login' }));
+  failureRedirect: '/login' }));
 app.get('/logout',
   function(req, res){
     req.logout();
@@ -353,6 +354,7 @@ function save(req, res, next) {
 }
 ```
 
+[Zurück nach oben](#kapitel-10-synchrones-und-asynchrones-io)
 ---
 
 ## Web-Sockets
@@ -487,3 +489,5 @@ io.sockets.on('connection', function (socket) {
 // tell console that server is up and running
 console.log('Server running on http://127.0.0.1:' + conf.port + '/');
 ```
+
+[Zurück nach oben](#kapitel-10-synchrones-und-asynchrones-io)

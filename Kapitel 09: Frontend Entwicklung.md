@@ -139,6 +139,7 @@ Im Beispielcode wird eine Liste mit Personennamen dargestellt, aus der einzelne 
 </html>
 ```
 
+[Zurück nach oben](#kapitel-9-frontend-entwicklung)
 ---
 
 ## Code-Abhängigkeiten
@@ -193,7 +194,6 @@ Das Module Pattern adressiert nur das Problem des Namensraums, nicht das Nachlad
 1. CommonJS-Module: Das commonJS-Projekt will eine browserunabhängige Javascript-Umgebung schaffen und hat dazu auch ein Modulsystem konzipiert, das zunächst keine Rücksicht auf Browser-Umgebungen nimmt. Um im Browser nutzbar zu sein, müssen weitere Tools hinzukommen, die z.B. require-Statements in Ladeoperationen übersetzen. Die praktische Bedeutung von CommonJS ist durch den Erfolg des neueren node.js-Projektes stark geschmälert worden, allerdings verwendet node.js die CommonJS-Modulsyntax.
 2. AMD-Module: Dieses Modulsystem ist stark auf den Browser ausgerichtet und benötigt nur wenige Zusatztools. Die meisten aktuellen Javascript-Bibliotheken unterstützen AMD-Module. Insbesondere über den Loader require.js waren AMD-Module lange Zeit die meistverbreitete Modularisierungslösung für clientseitiges Javascript.
 3. ES-6-Module: Mit Ecma-Script 6 wird ein an die Common-JS-Module angelehntes Modulsystem eingeführt, das in Zukunft sowohl für den Server als auch den Client als Standard fungieren wird.
-
 
 #### CommonJS-Module
 
@@ -287,6 +287,7 @@ define(function () {
 ```
 Der define-Aufruf hier hat keine Abhängigkeiten und verfügt daher nur über einen Parameter. Auch hier wird wieder ein Objekt zurückgegeben.
 
+[Zurück nach oben](#kapitel-9-frontend-entwicklung)
 ---
 
 ## Build-Prozess (webpack)
@@ -503,3 +504,5 @@ new webpack.ProvidePlugin({
 })
 ```
 Nun ist kein import mehr notwendig, jedes Vorkommen einer freien Variable $ oder jQuery führt dazu, dass das Modul importiert wird und unter dem angegebenen Namen bereitsteht. Sie können Ausdrücke wie $('theButton') also ohne weitere import-Statements oder Script-Tags im Javascript-Code nutzen.
+
+[Zurück nach oben](#kapitel-9-frontend-entwicklung)
