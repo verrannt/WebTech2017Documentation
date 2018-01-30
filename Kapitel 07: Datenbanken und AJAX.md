@@ -247,6 +247,7 @@ for item in db['staedte'].find({'sights.age' : {'$gt': 800}}):
 
 # will print 'Bramsche'
 ```
+
 [Zurück nach oben](#kapitel-7-datenbanken-und-ajax)
 
 ---

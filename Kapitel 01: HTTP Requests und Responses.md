@@ -32,6 +32,7 @@ Der message-body enthält eine __entity__. Eine entity besteht aus _entity-heade
              entity-body
 
 [Zurück nach oben](#kapitel-3-http-requests-und-responses)
+
 ---
 
 ## HTTP Request
@@ -116,6 +117,7 @@ text/\* akzeptiert beliebige Text-Typen
 \*/\* akzeptiert beliebige Typen
 
 [Zurück nach oben](#kapitel-3-http-requests-und-responses)
+
 ---
 
 ## HTTP Response

@@ -140,6 +140,7 @@ Im Beispielcode wird eine Liste mit Personennamen dargestellt, aus der einzelne 
 ```
 
 [Zurück nach oben](#kapitel-9-frontend-entwicklung)
+
 ---
 
 ## Code-Abhängigkeiten
@@ -288,6 +289,7 @@ define(function () {
 Der define-Aufruf hier hat keine Abhängigkeiten und verfügt daher nur über einen Parameter. Auch hier wird wieder ein Objekt zurückgegeben.
 
 [Zurück nach oben](#kapitel-9-frontend-entwicklung)
+
 ---
 
 ## Build-Prozess (webpack)

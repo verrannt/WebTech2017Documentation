@@ -68,6 +68,7 @@ REST-Interfaces für Web-Anwendungen werden sehr unterschiedlich umgesetzt. Um a
 **Achtung:** Auch, wenn es oft wertend verwendet wird, fällt das REST-Maturity-Model keine Qualitätsurteile über ein Interface. Es kann gute Gründe für eine Umsetzung auf jedem der 4 Level geben, allerdings sollten sich die Entwickler bewusst sein, was sie tun und wo die Unterschiede zwischen den verschiedenen Realisierungsoptionen liegen.
 
 [Zurück nach oben](#kapitel-11-web-services-und-rest)
+
 ---
 
 ## File-Server

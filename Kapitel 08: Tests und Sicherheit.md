@@ -31,8 +31,8 @@ Es geht darum, **vergleichbare Bedingungen** zu schaffen:
 Echtdaten (realistischer, dafür aber kompliziertere Tests)
 Testdaten (einfacher, dafür weniger realistisch)
 
-
 [Zurück nach oben](#kapitel-8-tests-und-sicherheit)
+
 ---
 
 ## Websicherheit
