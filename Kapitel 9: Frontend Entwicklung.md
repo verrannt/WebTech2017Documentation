@@ -1,19 +1,19 @@
 # Kapitel 9: Frontend Entwicklung
 
 1. [Javascript](#javascript)
-  * [Geschichte](#geschichte)
-  * [Lodash](#lodash)
-  * [jQuery](#jquery)
+  * 1.1 [Geschichte](#geschichte)
+  * 1.2 [Lodash](#lodash)
+  * 1.3 [jQuery](#jquery)
 2. [Code-Abhängigkeiten](#code-abhängigkeiten)
   1. [Script-Tags](#script-tags)
   2. [Das Module-Pattern](#das-module-pattern)
-  3. [CommonJS, require.js und AMD-Module](#commonjs, require.js-und-amd-module)
-3. [Build-Prozess (webpack)](#build-prozess-(webpack))
-  1. [Code-Management und Build-Prozesse](#code-management-und-build-prozesse)
+  3. [CommonJS, require.js und AMD-Module](#commonjs-requirejs-und-amd-module)
+3. [Build-Prozess (webpack)](#build-prozess-webpack)
+  1. [Code-Management und Build-Prozess](#code-management-und-build-prozess)
   2. [Development-Server](#development-server)
-  3. [Webpack: Kernkonzepte](#webpack:-kernkonzepte)
+  3. [Webpack: Kernkonzepte](#webpack-kernkonzepte)
   4. [Webpack: Entwicklungsworkflow](#webpack-entwicklungsworkflow)
-  5. [3rd-Party-Bibliotheken mit Webpack nutzen](#3rd-party-bibliotheken)
+  5. [3rd-Party-Bibliotheken mit Webpack nutzen](#3rd-party-bibliotheken-mit-webpack-nutzen)
 
 ---
 
@@ -452,7 +452,7 @@ x
 #### Output
 x
 
-### Webpack: Entwicklungsworkflow (optional)
+### Webpack: Entwicklungsworkflow
 
 **Video 4**
 https://youtu.be/8vnkM8JgjpU
