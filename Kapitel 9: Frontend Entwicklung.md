@@ -17,6 +17,17 @@
 
 ---
 
+<div class="table-of-contents">
+  <ol>
+    <li><a href="#heading">Heading</a>
+      <ol>
+        <li><a href="#sub-heading-1">Sub heading 1</a></li>
+        <li><a href="#sub-heading-2">Sub heading 2</a></li>
+      </ol>
+    </li>
+  </ol>
+</div>
+
 ## Javascript
 
 ### Geschichte
