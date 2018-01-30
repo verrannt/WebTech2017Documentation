@@ -1,5 +1,15 @@
 # Kapitel 10: Synchrones und asynchrones I/O
 
+* [Synchrones und asynchrones I/O und Event Loops](#synchrones-und-asynchrones-io-und-eventloops)
+* [node.js und express.js](#nodejs-und-expressjs)
+  * [node.js Grundlagen](#nodejs-grundlagen)
+  * [Server-Framework: express.js](#server-framework-expressjs)
+  * [Wiki in express.js](#wiki-in-expressjs)
+  * [Authentifizierung mit Passport](#authentifizierung-mit-passport)
+* [Web-Sockets](#web-sockets)
+  * [Intro](#intro)
+  * [Chat-Server mit Socket.IO](#chat-server-mit-socketio)
+
 ---
 
 ## Synchrones und asynchrones I/O und Eventloops
@@ -16,7 +26,7 @@ Wichtig ist, dass ein einlaufendes Event niemals die Abarbeitung eines laufenden
 
 ## node.js und express.js
 
-### node.js - Grundlagen
+### node.js Grundlagen
 
 node.js ist eine Javascript-Implementation, die außerhalb einer Browser-Umgebung läuft. Damit eignet sich node.js für die Umsetzung beliebiger Programmieraufgaben, insbesondere auch Server-Aufgaben. Es lassen sich aber auch andere Anwendungen in node.js implementieren, so sind z.B. die Tools npm oder webpack selbst node.js-Anwendungen.
 
@@ -117,7 +127,7 @@ Einige Begriffe unterscheiden sich etwas zwischen Python-Framework und express.j
 |Response-Objekt|Response-Objekt|Methoden vergleichbar|
 |Template-Engine|Template-Enging|Sehr vergleichbar: Template-Engine zentral registrieren und konfigurieren|
 
-### Beispiel: Wiki in express.js
+### Wiki in express.js
 
 Als komplexere Express-Anwendung **übertragen wir das Wiki (inkl. Mustache-Templates) auf node.js mit express**. Dazu werden die Templates nur minimal verändert, die Datenhaltung unverändert übernommen und aller Python-Code in node.js/express umgesetzt. Die Authentifizierung bleibt zunächst außen vor und wird erst im nächsten Schritt ergänzt.
 
@@ -347,7 +357,7 @@ function save(req, res, next) {
 
 ## Web-Sockets
 
-### Web-Sockets
+### Intro
 
 #### In welchen Situationen ist asynchrone Server-Programmierung besonders hilfreich?
 
@@ -364,7 +374,7 @@ Typische Anwendungen, die von dieser Möglichkeit profitieren, sind:
 #### AJAX-Long-Polling
 Die http-Standard-Technologie, die für Echtzeitbenachrichtigungen eingesetzt wird, ist AJAX Long Polling. Dabei wird ein Request an den Server geschickt, aber erst dann beantwortet, wenn neue Informationen vorliegen, z.B. ein Preis sich ändern, eine Nachricht eingeht oder jemand Neues den Chat-Raum betritt. In diesem Fall nimmt der Client die Antwort entgegen und stellt sofort einen neuen Request. Auf diese Weise kann der Server bestimmen, wann Informationen übermittelt werden, auch wenn er die Kommunikation nicht selbst etablieren kann. Diese Technologie verbraucht aber pro Nutzer dauerhaft eine Verbindung und ist für synchrones I/O in der Regel schlecht geeignet. Aber auch mit asnychronem Server-I/O bleibt sie eine Notlösung.
 
-### Bidirektional nutzbare stehende TCP-Verbindung
+#### Bidirektional nutzbare stehende TCP-Verbindung
 Ideal für die oben skizzierten Zwecke wäre eine stehende, beliebig nutzbare bidirektionale TCP-Verbindung. Grundsätzlich gibt es eine solche Verbindung zwischen Client und Server, nämlich die für den Austausch von http-Messages genutzte Verbindung. Allerdings erwarten beide Seiten wohlgeformte HTTP-Nachrichten in der richtigen Reihenfolge.
 
 Das Websocket-Protokoll ist ein Protokoll, das wie http eine Anwendungsschicht auf TCP-Basis definiert. Websocket-Nachrichten haben aber nur einen sehr kleinen Protokoll-Teil und sind in beide Richtungen identisch. Mit ihnen lassen sich von beiden Seiten aus jederzeit beliebige Daten an den anderen Kommunikationspartner übertragen.

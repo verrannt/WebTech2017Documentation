@@ -1,9 +1,23 @@
 # Kapitel 7: Datenbanken und AJAX
 
-1. [SQL-Datenbanken](#sql-datenbanken)
-2. [NoSQL-Datenbanken](#nosql-datenbanken)
-3. [MVC in Webanwendungen](#mvc-in-webanwendungen)
-4. [AJAX](#ajax)
+* [SQL-Datenbanken](#sql-datenbanken)
+  * [Datenbanken in Web-Anwendungen](#datenbanken-in-web-anwendungen)
+  * [Wichtige SQL-Statements](#wichtige-sql-statements)
+  * [Komplexere SQL-Statements (Verbinden mehrerer Tabellen)](#komplexere-sql-statements-verbinden-mehrerer-tabellen)
+  * [SQLite in Python](#sqlite-in-python)
+* [NoSQL-Datenbanken](#nosql-datenbanken)
+  * [SQL vs. NoSQL](#sql-vs-nosql)
+  * [ACID vs. BASE](#acid-vs-base)
+  * [MongoDB](#mongodb)
+  * [MongoDB-Abfragen](#mongodb-abfragen)
+  * [MongoDB in Python](#mongodb-in-python)
+* [MVC in Webanwendungen](#mvc-in-webanwendungen)
+  * [Model-View-Controller-Muster für Web-Anwendungen](#model-view-controller-muster-für-web-anwendungen)
+  * [Models](#models)
+* [AJAX](#ajax)
+  * [Asynchronous Javascript And XML](#asynchronous-javascript-and-xml)
+  * [Das XMLHttpRequest-Objekt](#das-xmlhttprequest-objekt)
+  * [Same-Origin-Policy](#same-origin-policy)
 
 ---
 
@@ -285,7 +299,7 @@ Type.delete(id=[known id])
 
 ## AJAX
 
-**Asynchronous Javascript and XML**
+### Asynchronous Javascript and XML
 
 Unter AJAX versteht man den Einsatz von http-Requests, die nicht vom Browser initiiert werden, um aus der Response ein neuen Dokument zu konstruieren und das aktuelle Dokument (sowie ggf. laufenden Javascript-Code) vollständig ersetzt. Stattdessen werden die Requests von Javascript-Code aus abgesandt und die Responses sind dann wiederum dem Javascript-Code zugänglich.
 
