@@ -127,7 +127,7 @@ Das Server-Framework musste noch etwas erweitert werden, um Routen mit Methoden 
 
 Das Microframework beruht darauf, dass es für die benutzte Webserver-Instanz nur genau eine App gibt, die eine bekannte Menge an Middlewares und ggf. Hilfs-Apps initialisiert. Diese App (MicroApp) wird durch die dekorierten Funktionen erweitert. Der Rest der Verarbeitung läuft wie gewohnt ab.
 
-### File-Server Implementation (Python)
+### File-Server Implementation
 
 Der File-Server bildet im Wesentlichen die REST-Operationen auf Datei-Aktionen ab. Zusätzlich gibt es für die Wurzel-Route eine Übersicht über die verfügbaren Collections / Ressourcentypen. In der vorliegenden Implementation ist das lediglich der Typ "files".
 
@@ -137,7 +137,7 @@ Soll eine neue Datei erzeugt werden, wird der Dateiinhalt als Parameter "content
 
 Alle weiteren Implementationsdetails entsprechen den schon bekannten Funktionalitäten des Server-Frameworks.
 
-### File-Client Implementation (Python)
+### File-Client Implementation
 
 Als Client für den File-Server wird hier eine Javascript-Anwendung vorgestellt. Im Gegensatz zu den AJAX-Anwendungen aus vorherigen Kapiteln wird hier kein HTML vom Server erzeugt und in Häppchen dem Client übergeben. Stattdessen bekommt die Anwendung die Daten als JSON-Strukturen und erzeugt daraus selbst, durch Einsatz einer clientseitigen Template-Engine den dynamischen HTML-Code.
 
