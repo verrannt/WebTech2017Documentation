@@ -1,5 +1,7 @@
 # WebTech2017Documentation
 
-Dokumentation des Informatik Kurses "Web-Technologien", angeboten an der Universität Osnabrück von Prof. Tobias Thelen, 2017.
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-Documentation of the computer science course "web technologies" offered by Prof. Tobias Thelen at the University of Onsabrück, 2017.
+Teilweise Dokumentation des Informatik Kurses "Web-Technologien", angeboten an der Universität Osnabrück von Prof. Tobias Thelen im Wintersemester 2017/18.
+
+Es wird kein Anspruch auf Vollständigkeit erhoben.
