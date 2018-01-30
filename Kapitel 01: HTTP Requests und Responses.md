@@ -13,6 +13,8 @@
         1. [Date](#date)
         2. [Content-Type](#content-type)
 
+---
+
 ## HTTP Nachrichten
 HTTP-Nachrichten (messages) sind Anfragen (Request) oder Antworten (Response). Beide verwenden ein generisches Nachrichtenformat, sind also strukturell ähnlich aufgebaut.
 
@@ -28,6 +30,9 @@ Der message-body enthält eine __entity__. Eine entity besteht aus _entity-heade
 
     entity = (entity-header CRLF)
              entity-body
+
+[Zurück nach oben](#kapitel-1-http-requests-und-responses)
+---
 
 ## HTTP Request
     Request      = Request-Line
@@ -110,6 +115,9 @@ text/\* akzeptiert beliebige Text-Typen
 
 \*/\* akzeptiert beliebige Typen
 
+[Zurück nach oben](#kapitel-1-http-requests-und-responses)
+---
+
 ## HTTP Response
 Auf eine http-Anfrage muss der Server mit einer http-Antwort antworten. Die allgemeiner Form einer solchen Antwort ist:
 
@@ -168,3 +176,5 @@ Beispiel:
 
 #### Content-Type
 Content-type ist ein Entity-Header, der angibt, von welchem Medien-Typ die angehängte Entity ist. Erlaubte Medientypen entsprechen denen von __Accept__, erlauben aber keine Wildcards.
+
+[Zurück nach oben](#kapitel-1-http-requests-und-responses)
