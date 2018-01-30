@@ -1,13 +1,13 @@
 # Kapitel 9: Frontend Entwicklung
 
-1. [Javascript](#javascript)
+* [Javascript](#javascript)
   * 1.1 [Geschichte](#geschichte)
   * 1.2 [Lodash](#lodash)
   * 1.3 [jQuery](#jquery)
-2. [Code-Abhängigkeiten](#code-abhängigkeiten)
-  1. [Script-Tags](#script-tags)
-  2. [Das Module-Pattern](#das-module-pattern)
-  3. [CommonJS, require.js und AMD-Module](#commonjs-requirejs-und-amd-module)
+* [Code-Abhängigkeiten](#code-abhängigkeiten)
+  * [Script-Tags](#script-tags)
+  * [Das Module-Pattern](#das-module-pattern)
+  * [CommonJS, require.js und AMD-Module](#commonjs-requirejs-und-amd-module)
 3. [Build-Prozess (webpack)](#build-prozess-webpack)
   1. [Code-Management und Build-Prozess](#code-management-und-build-prozess)
   2. [Development-Server](#development-server)
