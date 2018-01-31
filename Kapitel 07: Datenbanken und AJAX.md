@@ -39,7 +39,7 @@ Die typische Persistenz-Schicht für eine Web-Anwendung ist eine Datenbank, alle
 INSERT INTO table (column1, column2, column3) VALUES (value1, value2, value3)
 ```
 
-INSERT-Statements fügen neue Zeilen in eine einzelne Tabelle ein. Je nachdem, ob Spalten als verpflichtend definiert wurden, müssen alle oder nur einige der Spalten mit Werten belegt werden. Spaltennamen werden ohne Quotes oder ggf. mit Backquote `....` geschrieben, String-Werte mit einfachen Quote '...', Zahlenwerte ohne Anführungszeichen.
+INSERT-Statements fügen neue Zeilen in eine einzelne Tabelle ein. Je nachdem, ob Spalten als verpflichtend definiert wurden, müssen alle oder nur einige der Spalten mit Werten belegt werden. Spaltennamen werden ohne Quotes oder ggf. mit Backquote \`...\` geschrieben, String-Werte mit einfachen Quote '...', Zahlenwerte ohne Anführungszeichen.
 
 #### Auslesen von Datenbankeinträge (**READ**):
 
