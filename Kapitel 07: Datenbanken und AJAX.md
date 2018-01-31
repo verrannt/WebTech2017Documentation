@@ -321,11 +321,11 @@ oReq.open("http://localhost:8080/ajax/team/77");
 oReq.send();
 ```
 
-Mit open wird der Request vorbereitet, mit send abgeschickt. Gelingt er, wird das Event "load" aktiviert und entsprechend registrierte EventListener aufgerufen. Mittels das Attribut responseText enthält dann den Response-Body als Text, das Attribut responseType zeigt an, welchen Typs der Response-Body ist. Üblich sind heutzutage HTML für serverseitig erzeugte HTML-Teile und JSON für Daten, die clientseitig noch aufbereitet werden müssen. Responses ohne Body sind üblich für Aktionen, die auf dem Server nur angestoßen werden (z.B. Verzeichnen der Information dass ein Nutzer eine News gelesen hat).
+Mit open wird der Request vorbereitet, mit send abgeschickt. Gelingt er, wird das Event "load" aktiviert und entsprechend registrierte EventListener aufgerufen. Das Attribut `responseText` enthält dann den Response-Body als Text, das Attribut `responseType` zeigt an, welchen Typs der Response-Body ist. Üblich sind heutzutage HTML für serverseitig erzeugte HTML-Teile und JSON für Daten, die clientseitig noch aufbereitet werden müssen. Responses ohne Body sind üblich für Aktionen, die auf dem Server nur angestoßen werden (z.B. Verzeichnen der Information dass ein Nutzer eine News gelesen hat).
 
 ### Same-Origin-Policy
 
-Aus Sicherheitsgründen (die später genauer erläutert werden) dürfen AJAX-Requests nur die Herkunft des aktuellen Dokumentes gesendet werden.
+Aus Sicherheitsgründen (die später genauer erläutert werden) dürfen AJAX-Requests nur an die Herkunft des aktuellen Dokumentes gesendet werden.
 
 Die Herkunft (Origin) setzt sich zusammen aus: Schema, Host und Port.
 
