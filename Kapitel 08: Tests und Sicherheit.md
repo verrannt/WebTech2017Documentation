@@ -47,8 +47,8 @@ Dateisystem des Servers
 Manipulierter Request-Parameter oder URL-Pfad-Bestandteil
 
 #### Gegenmaßnahmen
-**Eingabevalidierung**: Sind in der Eingabe nur Zeichen enthalten, die auch erwartet werden?
-**Konstruktvalidierung**: Ist der zusammengesetzte Pfad gültig und zeigt er an eine erlaubte Stelle im Dateisystem?
+* Eingabevalidierung: Sind in der Eingabe nur Zeichen enthalten, die auch erwartet werden?
+* Konstruktvalidierung: Ist der zusammengesetzte Pfad gültig und zeigt er an eine erlaubte Stelle im Dateisystem?
 
 
 ### SQL-Injections
@@ -60,8 +60,8 @@ Der Angriff zielt auf die Server-Datenbank, die ausgelesen, manipuliert und sabo
 Manipulierte Eingabestrings in Request-Parametern und URL-Pfadbestandteilen
 
 #### Gegenmaßnahmen
-Eingabenvalidierung
-Konstruktvalidierung, vor allem durch Verwendung von Escape-Mechanismen des Datenbank-Treibers.
+* Eingabenvalidierung
+* Konstruktvalidierung, vor allem durch Verwendung von Escape-Mechanismen des Datenbank-Treibers.
 
 SQL-Injections sind immer noch eine relativ häufige Sicherheitslücke mit schwerwiegenden Folgen. Angreifer können u.U. Zugriff auf große Mengen sensibler Nutzerdaten erhalten, die z.B. vollständige Namen, E-Mail-Adressen (interessant für Spam-Versender), Kreditkartendaten und Passwörter enthalten können. Sind die Passwörter nicht verschlüsselt, ist das Problem evident, sind sie nicht mit einem individuellen Salt versehen, können insbesondere häufig genutzte Passwörter sehr leicht geknackt werden.
 
