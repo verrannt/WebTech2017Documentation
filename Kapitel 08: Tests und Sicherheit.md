@@ -87,7 +87,7 @@ with os.popen('grep "{}" log/access.log'.format(request.params['searchfor']) as 
     matching_lins = f.readlines()
 ```
 
-Hier soll der Request-Parameter _searchfor_ benutzt werden, um die Log-Datei _log/access.log_ zu durchsuchen. _os.popen_ liefert einen File-Descriptor, aus dem die aus einer normalen Datei gelesen werden kann.
+Hier soll der Request-Parameter `searchfor` benutzt werden, um die Log-Datei `log/access.log` zu durchsuchen. `os.popen` liefert einen File-Descriptor, aus dem die aus einer normalen Datei gelesen werden kann.
 
 Man erkennt schon ein ähnliches Muster wie bei der SQL-Injection: Wenn es nun gelingt, den Parameter searchfor so zu präparieren, dass sich ein weiterhin gültiger, aber nicht mehr der Intention entsprechender String ergibt, der dann ausgeführt wird, ist der Angriff gelungen. Ein solcher Angriff kann sich hier z.B. auf folgende Aktionen beziehen:
 
