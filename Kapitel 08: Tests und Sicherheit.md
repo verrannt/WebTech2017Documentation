@@ -1,15 +1,15 @@
 # Kapitel 8: Tests und Sicherheit
 
-1. [Webanwendungen testen](#webanwendungen-testen)
-  1. [Unit-Tests](#unit-tests)
-2. [Websicherheit](#websicherheit)
-  1. [Path-Traversal-Angriff](#path-traversal-angriff)
-  2. [SQL-Injections](#sql-injections)
-  3. [Special-Character-Injections](#special-character-injections)
-  4. [Cross-Site-Scripting](#cross-site-scripting)
-  5. [Session-Hijacking](#session-hijacking)
-  6. [Session-Fixation](#session-fixation)
-  7. [Cross-Site-Request-Forgery](#cross-site-request-forgery)
+* [Webanwendungen testen](#webanwendungen-testen)
+  * [Unit-Tests](#unit-tests)
+* [Websicherheit](#websicherheit)
+  * [Path-Traversal-Angriff](#path-traversal-angriff)
+  * [SQL-Injections](#sql-injections)
+  * [Special-Character-Injections](#special-character-injections)
+  * [Cross-Site-Scripting](#cross-site-scripting)
+  * [Session-Hijacking](#session-hijacking)
+  * [Session-Fixation](#session-fixation)
+  * [Cross-Site-Request-Forgery](#cross-site-request-forgery)
 
 ---
 
