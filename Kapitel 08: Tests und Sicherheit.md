@@ -89,10 +89,10 @@ with os.popen('grep "{}" log/access.log'.format(request.params['searchfor']) as 
 
 Hier soll der Request-Parameter `searchfor` benutzt werden, um die Log-Datei `log/access.log` zu durchsuchen. `os.popen` liefert einen File-Descriptor, aus dem die aus einer normalen Datei gelesen werden kann.
 
-Man erkennt schon ein ähnliches Muster wie bei der SQL-Injection: Wenn es nun gelingt, den Parameter searchfor so zu präparieren, dass sich ein weiterhin gültiger, aber nicht mehr der Intention entsprechender String ergibt, der dann ausgeführt wird, ist der Angriff gelungen. Ein solcher Angriff kann sich hier z.B. auf folgende Aktionen beziehen:
+Man erkennt schon ein ähnliches Muster wie bei der SQL-Injection: Wenn es nun gelingt, den Parameter `searchfor` so zu präparieren, dass sich ein weiterhin gültiger, aber nicht mehr der Intention entsprechender String ergibt, der dann ausgeführt wird, ist der Angriff gelungen. Ein solcher Angriff kann sich hier z.B. auf folgende Aktionen beziehen:
 
 - Überwindung von Beschränkungen bei der Suche in der Datei (wenn z.B. weitere Paramater für grep erzeugt werden könnten oder weitere Dateien zum Durchsuchen angegeben werden können)
-- Ausführen weiterer beliebiger Kommandos mit den Rechten des Webserver-Nutzers durch Verkettung mit ;
+- Ausführen weiterer beliebiger Kommandos mit den Rechten des Webserver-Nutzers durch Verkettung mit `;`
 
 Mögliche Angriffsstrings sehen dann wie folgt aus:
 
@@ -106,9 +106,7 @@ Genau wie bei der SQL-Injection wird hier ein komplexer String an die Stelle des
 
 #### Beispiel 2: Manipulation von in einer Datei gespeicherten Nutzerdaten
 
-Eine Webanwendung verwaltet ihre Benutzer in einer Textdatei, die die Informationen: Benutzername, Passwort, E-Mail-Adresse, Rechtestufe enthält. Mit "Rechtestufe" ist eine Einstufung als normaler Nutzer (Wert "user") oder als Administrator mit erweiterten Rechten gemeint (Wert "admin"). Die Werte werden durch : getrennt.
-
-##### Beispiel:
+Eine Webanwendung verwaltet ihre Benutzer in einer Textdatei, die die Informationen: Benutzername, Passwort, E-Mail-Adresse, Rechtestufe enthält. Mit "Rechtestufe" ist eine Einstufung als normaler Nutzer (Wert "user") oder als Administrator mit erweiterten Rechten gemeint (Wert "admin"). Die Werte werden durch `:` getrennt.
 
 > tobias:a3ee7692bcf323a90b87:tobias.thelen@uni-osnabrueck.de:user
 
@@ -140,6 +138,7 @@ Per Cross-Site-Scripting wird der jeweils eine Seite betrachtende Benutzer angeg
 
 #### Angriffsvektor
 In die Datenbank des Servers müssen manipulierte Strings eingeschleust werden, die dann die schadhafte Ausgabe produzieren. Die Strings kommen typischerweise per Request-Parameter in die Anwendung, ihre Ausgabe muss dann mit unzureichendem Schutz erfolgen.
+
 #### Gegenmaßnahmen
 * Eingabevalidierung: Soweit möglich schon bei der Entgegennahme von Texten prüfen, ob sie unerwünschte Zeichen enthalten und ggf. zurückweisen oder entfernen.
 * Ausgabevalidierung: Vor der Ausgabe werden Zeichen mit HTML-Sonderbedeutung escaped. Dazu sollte der Escaping-Mechanismus der Template-Engine verwendet werden.
@@ -156,7 +155,7 @@ Ein typischer Angriffsvektor für einen clientseitigen Angriff nutzt eine besteh
 Andere Angriffsvektoren können aber auch serverseitig aktiv werden und z.B. die Session-Dateien auslesen oder eine Session-Datenbank anzapfen.
 
 #### Gegenmaßnahmen
-* Session-Cookies sollten das httpOnly-Flag tragen, um nicht per Javascript ausgelesen werden zu können
+* Session-Cookies sollten das `httpOnly`-Flag tragen, um nicht per Javascript ausgelesen werden zu können
 * Sessions können zusätzlich gesichert werden (Bindung an eine IP-Adresse, Bindung an einen Referrer-String, ...)
 * Besonders kritische Aktionen wie z.B. das Ändern eines Passwortes sollten zusätzlich abgesichert werden (durch erneutes Abfragen des Passwortes)
 
