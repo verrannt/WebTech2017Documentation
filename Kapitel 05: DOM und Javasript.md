@@ -20,7 +20,7 @@ Damit werden zahlreiche Probleme wie Unter- und Überläufe vermieden und der Um
 
 Selbstverständlich ergeben sich dadurch auch Probleme. Zwei typische Beispiele:
 
-``` 
+```javascript
 0.1 + 0.2 == 0.30000000000000004
  
 9007199254740992 + 1 == 9007199254740992
@@ -67,11 +67,15 @@ var rounded = Math.round(1.5);
 
 Zeichenketten sind vom Datentyp String und können einfach als String-Literale angegeben werden:
  
-`var my_string = "Hello World";`
+```javascript
+var my_string = "Hello World";
+```
 
 Strings sind unveränderbar, können mit einfachen oder doppelten Anführungszeichen umschloßen und mit den Operatoren `==` und `===` verglichen werden.
  
-`"foo" === 'foo'`
+```javascript
+"foo" === 'foo'
+```
 
 Es gibt keinen gesonderten Datentyp für einzelne Buchstaben.
 
@@ -132,7 +136,7 @@ beispielsweise der then-Block eines `if`-Statements nur von Ausdrücken ausgelö
 
 Die folgenden Werte gelten als _false_:
 
-``` 
+```javascript
 false
 null
 undefined
@@ -189,7 +193,9 @@ anArray.length === 101
 
 Um Werte an ein Array anzuhängen kann man das gut verwenden:
 
-`cities[cities.length] = "Fenario";`
+```javascript
+cities[cities.length] = "Fenario";
+```
 
 Zum Iterieren über ein Array verwendet man die übliche for-Schleife:
 
@@ -216,12 +222,12 @@ array.splice(number, 1)
 
 Reguläre Ausdrücke können mit entsprechenden Literalen hergestellt werden:
 
- 
-`var number = /^-?\d+$/i;`
+```javascript
+var number = /^-?\d+$/i;
+```
 
 Sie verhalten sich so, wie man es aus Python schon kennt. Ein paar Beispiele:
 
- 
 ```javascript
 var header = "Content-Type: text/html";
 result = /^(.*): (.*)$/.exec(header)
@@ -258,29 +264,29 @@ result === [ "Content-Type", "text/html" ]
 
 Die arithmetischen Operatoren entsprechen den üblicherweise verwendeten:
 
-```
+```javascript
 + - * / %
 ```
 Es gibt zwei Sätze von Vergleichoperatoren:
 
-```
+```javascript
 === !===
 == !=
 < <= > >=
 ```
 Zuweisung geschieht über den bekannten Zuweisungsoperator `=`. Zusätzlich gibt es noch kombinierte Zuweisungsoperatoren:
 
-```
+```javascript
 += -= *= /= %=
 ```
 Auch die logischen Operatoren (und, oder, nicht) sollten bekannt sein:
 
-```
+```javascript
 && || !
 ```
 Zur bitweisen Verknüpfung von Werten existieren:
 
-```
+```javascript
 & | ^ >> >>> <<
 ```
 Und der ternäre Operator darf ebenfalls nicht fehlen:
@@ -290,26 +296,26 @@ true ? "hoge" : "fuga"
 ```
 Zum Inkrementieren und Dekrementieren gibt es diese Operatoren (jeweils als Prä- und Postfixoperator):
 
-```
+```javascript
 ++fuga --fuga
 hoge++ hoge--
 ```
 Zeichenketten können mit `+` konkateniert werden:
 
-```
+```javascript
 "foo" + "bar"
 ```
 Leider wird dieser Operator auch schon für die Addition von Zahlen verwendet. Handelt es sich bei beiden Operanden um Zahlen, wird addiert.
 Ansonsten werden die Operanden implizit in Strings umgewandelt und konkateniert.
 
-```
+```javascript
 1 + 2 === 3
 "¥" + 4 + 2 === "¥42"
 ```
 Da es sich bei den Zahlen um Gleitkommazahlen handelt, verwundert es nicht, dass folgender Ausdruck wieder eine Gleitkommazahl liefert
 (anders als etwa in Java).
 
-```
+```javascript
 23 / 13 !== 1
 ```
 Die Vergleichoperatoren `==` und `!=` verwenden implizite Typumwandlung (_type coercion_), deren Regeln weder einsichtig noch leicht erlernbar
