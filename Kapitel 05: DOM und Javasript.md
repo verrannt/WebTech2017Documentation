@@ -56,7 +56,7 @@ Auf die üblichen mathematischen Funktionen kann mit Hilfe des `Math`-Objekts zu
 [`SQRT1_2`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/SQRT1_2)
 [`SQRT2`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/SQRT2)
 
-```
+```javascript
 // Beispiel
 var rounded = Math.round(1.5);
 ```
@@ -77,7 +77,7 @@ Es gibt keinen gesonderten Datentyp für einzelne Buchstaben.
 
 Um eine Zeichenkette in eine Zahl zu verwandeln, verwendet man parseInt. Der zweite Parameter gibt optional die Basis an. Früher führten Werte wie "010" zu einer Behandlung als Oktal-Zahl - das ist inzwischen in aktuellen Browsern aber nicht mehr der Fal.
 
-``` 
+```javascript
 // convert string to number
 parseInt("17")
 > 17
@@ -87,7 +87,7 @@ parseInt("010")
 
 Zahlen können mit Hilfe der Methode toString in Strings umgewandelt werden:
 
-``` 
+```javascript
 var num = 23;
 num.toString() === "23"
 ```
@@ -95,7 +95,7 @@ Zeichenketten werden intern als _UCS-2_ verarbeitet. Das entspricht nicht ganz _
 (Beispiel Notenschlüssel: `D834 DD1E`) erkennt.
 
 Die Länge einer Zeichenkette kann mit der Objekteigenschaft `length` ausgelesen werden:
-```
+```javascript
 // but: wrong w/ surrogate pairs
 "23".length === 2
 ```
@@ -130,7 +130,7 @@ Vom Datentyp Boolean gibt es nur zwei Objekte: die Literale `true` und `false`.
 Die später beschriebenen Statements und Operatoren verwenden darüber hinaus ein Konzept, nach dem ein Ausdruck _truthy_ oder _falsy_ ist. So wird
 beispielsweise der then-Block eines `if`-Statements nur von Ausdrücken ausgelöst, die _truthy_ sind.
 
-Die folgenden Werte gelten als _falsy_:
+Die folgenden Werte gelten als _false_:
 
 ``` 
 false
@@ -150,7 +150,7 @@ Alle anderen Werte sind _truthy_ (also zum Beispiel der String `"0"`).
 
 Neue Variablen werden mit dem `var`-Statement definiert und optional initialisiert. Uninitialisierte Variablen haben stets den Wert `undefined`.
 
-``` 
+```javascript
 var name = "hoge";
 var a;
 
@@ -169,7 +169,7 @@ a === undefined
 
 JavaScript hat natürlich auch Arrays, die besonders einfach mit Array-Literalen erzeugt werden können:
 
-``` 
+```javascript
 var cities = ["Adrilankha",
               "Northport",
               "Candletown"];
@@ -181,20 +181,19 @@ Performance nicht besonders gut.
 
 Arrays haben eine besondere Objekteigenschaft length. Diese entspricht immer dem höchsten Index + 1:
 
- 
-`var anArray = ["foo"];`
-`anArray[100] = "bar";`
-`anArray.length === 101`
+```javascript
+var anArray = ["foo"];
+anArray[100] = "bar";
+anArray.length === 101
+```
 
 Um Werte an ein Array anzuhängen kann man das gut verwenden:
 
- 
 `cities[cities.length] = "Fenario";`
 
 Zum Iterieren über ein Array verwendet man die übliche for-Schleife:
 
- 
-```
+```javascript
 for (var i = 0; i < cities.length; i += 1) {
     doIt(a[i]);
 }
@@ -202,8 +201,7 @@ for (var i = 0; i < cities.length; i += 1) {
 Man kann Elemente aus einem Array löschen. Je nach Art und Weise bleiben dabei Löcher zurück oder aber die nachfolgenden Elemente werden neu
 nummeriert:
 
- 
-```
+```javascript
 // w/ holes
 delete array[number]
 // w/o holes
@@ -224,37 +222,27 @@ Reguläre Ausdrücke können mit entsprechenden Literalen hergestellt werden:
 Sie verhalten sich so, wie man es aus Python schon kennt. Ein paar Beispiele:
 
  
-```
+```javascript
 var header = "Content-Type: text/html";
 result = /^(.*): (.*)$/.exec(header)
 result === [ "Content-Type: text/html", "Content-Type", "text/html" ]
-```
- 
-```
+
 var header = "Content-Type: text/html";
 result = /^(.*): (.*)$/.test(header);
 result === true
-```
- 
-```
+
 var header = "Content-Type: text/html";
 result = header.match(/^(.*): (.*)$/);
 result === [ "Content-Type: text/html", "Content-Type", "text/html" ]
-```
- 
-```
+
 var header = "Content-Type: text/html";
 result = header.replace(/^(.*): (.*)$/, "$1=$2");
 result === "Content-Type=text/html"
-```
- 
-```
+
 var header = "Content-Type: text/html";
 result = header.search(/: /);
 result === 12
-```
 
-```
 var header = "Content-Type: text/html";
 result = header.split(/: /);
 result === [ "Content-Type", "text/html" ]
@@ -297,10 +285,10 @@ Zur bitweisen Verknüpfung von Werten existieren:
 ```
 Und der ternäre Operator darf ebenfalls nicht fehlen:
 
-```
+```javascript
 true ? "hoge" : "fuga"
-Zum Inkrementieren und Dekrementieren gibt es diese Operatoren (jeweils als Prä- und Postfixoperator):
 ```
+Zum Inkrementieren und Dekrementieren gibt es diese Operatoren (jeweils als Prä- und Postfixoperator):
 
 ```
 ++fuga --fuga
@@ -327,7 +315,7 @@ Da es sich bei den Zahlen um Gleitkommazahlen handelt, verwundert es nicht, dass
 Die Vergleichoperatoren `==` und `!=` verwenden implizite Typumwandlung (_type coercion_), deren Regeln weder einsichtig noch leicht erlernbar
 wären:
 
-```
+```javascript
    '' == '0'       // false
     0 == ''        // true
     0 == '0'       // true
@@ -342,7 +330,7 @@ Verwendet man hingegen `===` und `!==` wird keine implizite Typumwandlung vorgen
 Zu guter letzt gibt es noch den `typeof`-Operator, der den Datentyp des Operanden zurückliefert. Auch hier gibt es wieder kleine
 Überraschungen:
 
-```
+```javascript
 typeof aNumber     === 'number'
 typeof aString     === 'string'
 typeof aBoolean    === 'boolean'
@@ -352,4 +340,5 @@ typeof anArray     === 'object'    // !!!
 typeof aNull       === 'object'    // !!!
 typeof anUndefined === 'undefined'
 ```
+
 [Zurück nach oben](#kapitel-5-dom-und-javascript)
