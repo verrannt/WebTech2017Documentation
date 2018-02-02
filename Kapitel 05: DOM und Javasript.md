@@ -1,13 +1,13 @@
 # Kapitel 5: DOM und Javascript
 
-1. [Variablen und Typen](#variablen-und-tpyen)
-  1. [Number](#number)
-  2. [String](#string)
-  3. [Boolean](#boolean)
-  4. [Variablen](#variablen)
-  5. [Arrays](#arrays)
-  6. [Reguläre Ausdrücke](#reguläre-ausdrücke)
-2. [Statements und Operatoren](#statements-und-operatoren)
+* [Variablen und Typen](#variablen-und-typen)
+  * [Number](#number)
+  * [String](#string)
+  * [Boolean](#boolean)
+  * [Variablen](#variablen)
+  * [Arrays](#arrays)
+  * [Reguläre Ausdrücke](#reguläre-ausdrücke)
+* [Statements und Operatoren](#statements-und-operatoren)
 
 ---
 
@@ -61,23 +61,21 @@ Auf die üblichen mathematischen Funktionen kann mit Hilfe des `Math`-Objekts zu
 var rounded = Math.round(1.5);
 ```
 [Zurück nach oben](#kapitel-5-dom-und-javascript)
+
 ----
 ### String
 
 Zeichenketten sind vom Datentyp String und können einfach als String-Literale angegeben werden:
-
  
 `var my_string = "Hello World";`
 
 Strings sind unveränderbar, können mit einfachen oder doppelten Anführungszeichen umschloßen und mit den Operatoren `==` und `===` verglichen werden.
-
  
 `"foo" === 'foo'`
 
 Es gibt keinen gesonderten Datentyp für einzelne Buchstaben.
 
-Um eine Zeichenkette in eine Zahl zu verwandeln, verwendet man parseInt. Der zweite Parameter gibt optional die Basis an. Früher führten
-Werte wie "010" zu einer Behandlung als Oktal-Zahl - das ist inzwischen in aktuellen Browsern aber nicht mehr der Fal.
+Um eine Zeichenkette in eine Zahl zu verwandeln, verwendet man parseInt. Der zweite Parameter gibt optional die Basis an. Früher führten Werte wie "010" zu einer Behandlung als Oktal-Zahl - das ist inzwischen in aktuellen Browsern aber nicht mehr der Fal.
 
 ``` 
 // convert string to number
