@@ -8,7 +8,14 @@
   * [Arrays](#arrays)
   * [Reguläre Ausdrücke](#reguläre-ausdrücke)
 * [Statements und Operatoren](#statements-und-operatoren)
-
+  * [Operatoren](#operatoren)
+  * [Statements](#statements)
+* [Objektorientierung](#objektorientierung)
+  * [Objekte](#objekte)
+* [Funktionen, Scope und Closures](#funktionen,-scope-und-closures)
+  * [Funktionen](#funktionen)
+  * [Scope](#scope)
+  * [Closures](#closures)
 ---
 
 ## Variablen und Typen
@@ -346,5 +353,359 @@ typeof anArray     === 'object'    // !!!
 typeof aNull       === 'object'    // !!!
 typeof anUndefined === 'undefined'
 ```
+
+[Zurück nach oben](#kapitel-5-dom-und-javascript)
+
+---
+
+### Statements
+
+Die Statements von JavaScript sehen (nahezu) genauso aus, wie in Java (oder C). Erwartet Java aber beispielsweise einen boolschen Wert im Test
+eines if-Statements, begnügt sich JavaScript mit beliebigen Ausdrücken, die auf Truthy-ness oder Falsy-ness überprüft werden:
+
+```javascript 
+if (name == "foo") {
+    //
+} else {
+    //
+}
+```
+ 
+```javascript 
+switch(1 + 3) {
+    case 2 + 2:
+        doIt();
+        break;
+    default:
+        neverHappens();
+}
+```
+ 
+```javascript 
+while (true) {
+    neverEndingStory();
+}
+```
+ 
+```javascript 
+do {
+     matchHere(text);
+} while (text = text.substr(1));
+```
+ 
+```javascript 
+for (i = 0; i < array.length; i += 1
+    alert(array[i]);
+}
+```
+Die bekannten Schlüsselworte break, continue und return verhalten sich in JavaScript genauso, wie man das erwarten würde.
+
+[Zurück nach oben](#kapitel-5-dom-und-javascript)
+
+---
+
+## Objektorientierung
+
+### Objekte
+
+Objekte sind in JavaScript "collections" dynamischer Eigenschaften. In JavaScript gibt es keine Klassen. Stattdessen stammen Objekte von anderen Objekten ab.
+
+#### Objekt-Literale
+
+Die einfachste Form, zur Erzeugung eines Objekts ist die Verwendung von Objekt-Literalen:
+
+```javascript
+var empty = {};
+var rascal = {
+    "given-name": "Borrah",
+    surname:      "Minnevitch"
+};
+```
+
+#### Zugriff auf Objekt-Eigenschaften
+
+Der Zugriff auf eine Eigenschaft eines Objekts kann mit Punkt- oder Klammernotation erfolgen:
+
+```javascript
+// get
+rascal.surname
+rascal["given-name"]
+```
+Beide sind gleichwertig, allerdings erlaubt die Klammernotation die Verwendung von Eigenschaftsnamen, die nicht den genannten Regeln für Bezeichner unterliegen. 
+Insbesondere können in der Klammernotation beliebige Ausdrücke verwendet werden. 
+Objekteigenschaften können natürlich verschachtelt sein, d.h. also wiederum Objekte enthalten.
+
+Das Setzen einer Objekteigenschaft erfolgt analog:
+
+```javascript
+// set
+rascal.surname = "Fields";
+rascal["given-name"] = "George";
+```
+
+Objekteigenschaften können mit `delete` gänzlich entfernt werden:
+
+```javascript
+// delete
+delete rascal.surname;
+delete rascal["given-name"];
+Object.create()
+```
+Jedes Objekt ist mit einem anderen Objekt, einem Prototyp-Objekt, verbunden, dessen Eigenschaften es erbt. 
+Objekt-Literale erben grundsätzlich von `Object.prototype`. 
+Erzeugt man Objekte auf andere Art und Weise, kann ein beliebiges anderes Objekt als Prototyp dienen.
+
+Leider verwirrte die JavaScript-Syntax selbst ein wenig, so dass in _ES5_ eine neue Methode `Object.create` spezifiziert wurde, mit der man ein neues Objekt auf der Basis eines anderen Objekts erzeugen kann.
+
+Probieren wir das mal aus. 
+Zunächst ein Objekt:
+
+```javascript
+var rascal = {
+    "given-name": "Borrah",
+    surname: "Minnevitch"
+};
+```
+Nun können wir uns mehr von diesen herstellen:
+```javascript
+var anotherRascal = Object.create(rascal);
+
+anotherRascal.surname === "Minnevitch"
+```
+Der Prototyp-Mechanismus wird aber nur beim Auslesen angewendet. 
+Beim Schreiben wird die Eigenschaft lediglich im gegebenen Objekts gesetzt (also nicht im Prototyp-Objekt).
+
+```javascript
+// updates do not touch prototypes
+// prototypes only used for retrieval
+var anotherRascal = Object.create(rascal);
+
+anotherRascal["given-name"] = "George";
+
+rascal["given-name"] === "Borrah"
+anotherRascal["given-name"] === "George"
+```
+Beim Auslesen einer Eigenschaft wird beim gegebenen Objekt begonnen. 
+Wird die Eigenschaft nicht im Objekt gefunden, wird sie im Prototyp-Objekt gesucht. 
+Dieser Schritt wird solange wiederholt, bis man letztlich bei `Object.prototype` endet. 
+Wurde die Eigenschaft dann nicht gefunden, ist das Ergebnis `undefined`.
+
+Dieses Konzept heißt _delegating inheritance based on prototypes_.
+
+#### Konstruktoren-Syntax
+
+In der Konstruktorenform werden Objekte ausgehend von einer Konstruktor-Funktion definiert.
+Diese Funktion wird mit dem Statement `new` aufgerufen, wodurch ein Objekt erzeugt wird.
+Anschließend werden an das Prototyp-Objekt Funktionen angehängt. Das riecht ein wenig nach [Monkey Patching](https://en.wikipedia.org/wiki/Monkey_patch), ist aber in Javascript völlig üblich. 
+Auf die gleiche Weise können auch eingebaute Objekte, wie z.B. `Math` oder `Array` um neue Methoden erweitert werden.
+
+```javascript
+var Rascal = function (given_name, surname) {
+    this["given-name"] = given_name;
+    this.surname = surname;
+};
+Rascal.prototype.fullName = function () {
+    return this["given-name"] + " " + this.surname;
+};
+
+var rascal = new Rascal("Borrah", "Minnevitch");
+
+rascal.fullName() === "Borrah Minnevitch"
+```
+JavaScript ist zwar eine prototypbasierte Sprache. 
+Die Syntax stammt aber aus einer klassenbasierten Sprache. 
+Das macht die Sache etwas verwirrend.
+
+Ruft man eine Funktion mit `new` auf, wird ein neues Objekt angelegt und der Prototyp des Objekt auf die Objekteigenschaft `prototype` der aufgerufenen Funktion gesetzt. 
+`this` wird an das neue Objekt gebunden.
+
+#### for-Schleifen über Objekt-Properties
+
+Als eine Besonderheit von JavaScript gibt es noch das `for in`-Statement, dass die Eigenschaften eines Objekts iteriert.
+Dabei werden allerdings auch (fast) alle geerbten Eigenschaften durchlaufen.
+
+```javascript
+for (name in object) {
+    if (object.hasOwnProperty(name))
+        doSomething(object[name]);
+    }
+}
+```
+
+[Zurück nach oben](#kapitel-5-dom-und-javascript)
+
+---
+
+## Funktionen, Scope und Closures
+
+
+### Funktionen
+Funktionsausdrücke erstellen Funktionsobjekte:
+
+```javascript
+var add = function (x, y) {
+    var sum = x + y;
+    return sum;
+};
+```
+Funktionen sind `first-class`-Objekte und können daher:
+
+* als Argument beim Funktionsaufruf verwendet werden.
+* als Funktionsrückgabewert benutzt werden.
+* einer Variablen oder einer Objekteigenschaft zugewiesen werden.
+* können Methoden und Eigenschaften haben.
+* können (natürlich) aufgerufen werden.
+
+Das `var`-Statement wurde bereits oben verwendet, ohne genau erklärt zu werden. 
+Mit dem `var`-Statement werden lokale Variablen deklariert und optional initialisiert. 
+Variablen, die in einer Funktion deklariert werden, sind überall in dieser Funktion sichtbar.
+
+```javascript
+var foo = function () {
+
+  var a = 3, b = 5;
+
+  var bar = function () {
+
+    var b = 7, c = 11;
+
+    a = a + b + c;
+
+  };
+
+  bar();
+};
+```
+
+__Wenn man das `var` vergisst, erhält man eine globale Variable. Globale Variablen sind böse.__
+
+Zusätzlich zu den den Funktionsausdrücken gibt es noch Funktions-Statements. 
+Diese entsprechen aber weitgehend den Funktionsausdrücken.
+
+```javascript 
+function add(x, y) {...}
+// (almost) the same as
+var add = function (x, y) {...};
+```
+
+[Zurück nach oben](#kapitel-5-dom-und-javascript)
+
+---
+
+### Scope
+
+JavaScript hat keinen Block-Scope wie _Java_ oder _C_, sondern Function-Scope. 
+Wie schon gesagt, sind alle lokalen Variablen überall in ihrer Funktion sichtbar (und außerhalb natürlich nicht).
+
+```javascript 
+function foo() {
+  var bar = 23;
+}
+
+foo();
+```
+```javascript
+try {
+  result = bar;
+} catch (e) {
+  result = e.name + ": " + e.message;
+}
+```
+Eine Funktion kann mit Hilfe des `return`-Statements einen Wert zurückgeben:
+
+```javascript
+// returns expression
+return expression;
+```
+
+```javascript
+// returns undefined
+return;
+```
+Gibt eine Funktion nichts explizit zurück, ist das Ergebnis eines Funktionsaufrufs `undefined`.
+
+Die Argumente einer Funktion sind nicht bindend, sondern eher _Richtlinien_. 
+Fehlende Parameter werden auf `undefined` gesetzt und man kann mehr Argumente als die angegebenen übergeben. 
+Diese werden einfach ignoriert.
+
+```javascript
+var add = function (x, y) { return x + y; }
+add(2, 3, 4) === 5
+```
+Innerhalb einer Funktion gibt es einen magischen Pseudoparameter `arguments`, der sich ähnlich wie ein Array verhält.
+
+```javascript
+var add = function () {
+    var sum = 0, i;
+    for (i = 0; i < arguments.length; i += 1) {
+        sum += arguments[i];
+    }
+    return sum;
+}
+add(2, 3, 4, 5) === 14
+```
+
+Außerdem ist in jeder Funktion automatisch der Pseudoparameter `this` definiert. 
+Dieses `this` enthält eine Referenz zum Objekt des Aufrufs und wird durch die Art des Aufrufs festgelegt. 
+Es gibt in JavaScript mehrere Arten, eine Funktion aufzurufen:
+
+In der Funktionsform ist `this` eine Referenz auf das globale Objekt:
+```javascript
+var func = function () { return this; }
+func() === window
+```
+
+In der Methodenform ist `this` eine Referenz auf das Objekt, an das die Nachricht gesendet wurde:
+
+```javascript
+rascal.func = function () { return this; }
+rascal.func() === rascal
+```
+
+[Zurück nach oben](#kapitel-5-dom-und-javascript)
+
+---
+
+### Closures
+
+Closures sind Funktionen, die beim Aufruf ihren ursprünglichen Kontext reproduzieren können, selbst wenn dieser schon nicht mehr existiert.
+
+In _JavaScript_ können Funktionen in Funktionen erzeugt werden. 
+Die _innere_ Funktion kann über ihre gesamte Lebensdauer hinweg auf die Variablen und Parameter der äußeren Funktion zugreifen. 
+Selbst wenn diese Funktion schon nicht mehr existiert.
+
+```javascript
+var quo = function (status) {
+  return {
+    get_status: function () {
+      return status;
+    }
+  };
+};
+var myQuo = quo("amazed");
+myQuo.get_status() === "amazed"
+```
+(aus "_JavaScript: The Good Parts_")
+
+[Zurück nach oben](#kapitel-5-dom-und-javascript)
+
+---
+
+## JSON
+
+_JSON_ (**J**ava**S**cript **O**bject **N**otation) ist ein Datenformat, dass syntaktisch wie Javascript-Datenstrukturen aufgebaut ist. 
+
+JSON kann enthalten:
+ 
+* Zahlen, z.B. `5`, `4.3`
+* Strings, z.B. `"Ein String!"`, `'und noch einer'`
+* Boolean-Werte, `true` oder `false`
+* Arrays, z.B. `[1,2,"toll",true]`, `[1,2,[3,4,[5,6]]]`
+* Objekt-Literale, z.B. `{ name: "Tobias", "matrikel-nummer": 988854}`
+
+Grundsätzlich können JSON-Daten als _Javascript_-Code z.B. Variablen zugewiesen werden. 
+Häufig stammen die Daten aber aus einer anderen Quelle, z.B. einem _http_-Request (dazu später mehr) und müssen von Strings in Javascript-Datenstrukturen umgewandelt werden. 
+Theoretisch wäre das per `eval()` möglich, davon ist aber abzuraten, da ggf. unsichere und aktive Code-Teile eingeschmuggelt werden können. 
+Zur Verarbeitung von JSON-Daten eignet sich das [JSON-Objekt](#https://wiki.selfhtml.org/wiki/JSON).
 
 [Zurück nach oben](#kapitel-5-dom-und-javascript)
