@@ -7,8 +7,9 @@
   * [Logiklose Templates - Mustache](#logiklose-templates---mustache)
 * [Zustände & Cookies](#zustände--cookies)
   * [Zustände](#zustände)
+  * [Beispiel: Zahlenraten](#beispiel-zahlenraten)
   * [Cookies](#cookies)
-    * [Was ist in einem Cookie?]('#was-ist-in-einem-cookie)
+    * [Was ist in einem Cookie?](#was-ist-in-einem-cookie)
     * [Cookie setzen](#cookie-setzen)
     * [Cookie löschen](#cookie-löschen)
     * [Same-Origin-Policy und Third-Party-Cookies](#same-origin-policy-und-third-party-cookies)
@@ -208,7 +209,7 @@ _zustandslos_ und _zustandbehaftet_.
 Ein Beispiel für ein _zustandsbehaftetes_ Client-Server-Prokoll ist `ftp` (file transfer protocol), bei dem eine TCP-Verbindung zu einem File-Server aufgebaut wird, die bis zu ihrer Trennung bestehen bleibt. 
 Der Nutzer kann auf dem entfernten Server im Verzeichnisbaum navigieren, die aktuelle Position im Verzeichnisbaum ist z.B. eine Zustandsvariable.
 
-#### http ist zustandslos
+#### HTTP ist zustandslos
 
 In der Einführung zu _HTTP_ ist deutlich geworden: _HTTP_ ist ein zustandsloses Protokoll.
 Der Webserver nimmt einzelne Requests entgegen und erzeugt jeweils eine Response. 
@@ -217,6 +218,199 @@ Ein Zusammenhang zwischen aufeinanderfolgenden Requests des gleichen Nutzers kan
 
 Soll eine Webanwendung dennoch zustandsbehaftet operieren, sind auf höherer Ebene Zustandsmechanismen einzuführen. 
 Für diese Mechanismen gibt es mehrere verbreitete Lösungen, die je nach Anwendungsszenario auszuwählen sind.
+
+### Beispiel: Zahlenraten
+
+Im Folgenden werden verschiedene Möglichkeiten behandelt, ein "Zahlenraten" Spiel zu implementieren. In einer Beispielanwendung soll der Nutzer in möglichst wenig Versuchen eine zufällig festgelegte Zahl zwischen 1 und 100 erraten. Der Server nimmt Rateversuche entgegen und gibt Hinweise, ob die gesuchte Zahl kleiner oder größer als der Rateversuch ist. Die Anzahl der Versuche wird mitgezählt und bei richtigem Raten ausgegeben. Anschließend kann der Nutzer eine neue Zahl erraten.
+
+#### Model-Klasse
+
+Allen folgenden Szenarien wird die gleiche Model-Klasse zugrundegelegt, die festlegen einer Zufallszahl und Überprüfung von Rateversuchen übernimmt.
+
+```python
+class GuessNumberModel:
+    """Chooses a random number to guess, maintains counter and
+       compares guesses to random number."""
+
+    def __init__(self, num=0, count=0):
+        """Constructs Model from scratch or from known values."""
+
+        if num == 0: # find new random number, reset counter
+            from random import randint
+            self.num = randint(1,100)
+            self.count = 0
+        else: # fill from given values
+            self.num = int(num) # TODO: error handling
+            self.count = int(count) # TODO: error handling
+
+    def guess(self, guess):
+        """Compares guess and stored number to guess. Increases counter.
+           Returns tuple of (Found?, Message to display)."""
+        if guess < 1 or guess > 100:
+            return (False, '')
+
+        self.count +=1
+        if self.num < guess:
+            return (False, "Die gesuchte Zahl ist kleiner als %d." % (guess))
+        elif self.num > guess:
+            return (False, "Die gesuchte Zahl ist größer als %d." % (guess))
+        else:
+            self.count=0
+            return (True, "Herzlichen Glückwunsch! %d war richtig geraten!" % (guess))
+```        
+
+Ungewöhnlich erscheint hier zunächst der Konstruktor, der auf zwei Weisen verwendet werden kann:
+* Aufruf ohne Werte: Eine neue Zahl wird ermitteln, der Zähler auf 0 gesetzt
+* Aufruf mit Werten: Zu erratende Zahl und Zähler werden aus den übergebenen Werten gesetzt.
+
+Letztere Variante wird später wichtig, wenn es kein GuessNumberModel gibt, dass zwischen zwei HTTP-Requests bestehen bleibt, sondern für jede Anfrage ein neues Objekt mit bekannten Werten initialisiert werden muss.
+
+#### Anforderungen an einen Zustandsmechanismus für Zahlenraten
+
+Ein Zustandsmechanismus für die zu entwickelnde Anwendung muss folgende Anforderungen erfüllen:
+* Festlegen einer neuen zu erratenden Zahl und Zurücksetzen des Ratezählers:
+  * bei der ersten Anfrage
+  * immer dann, wenn eine Zahl erraten wurde
+* Zugriff auf eine vorhandene zu erratende Zahl und Hochsetzen des Ratezählers:
+  * bei allen anderen Anfragen
+* Füllen des show-Templates mit:
+* Entgegennahme von Rateversuchen über Formular in show.html (GET-Parameter guess)
+  * Nachricht über Bewertung des Rateversuchs (Variable msg)
+  * Ausgabe des aktuellen Zählers (Variable cnt)
+  * Nachricht über eventuell neu generierte Zahl (Variable newmsg)
+  * Je nach Mechanismus Ausgabe von versteckten Formularfeldern (Variable hidden)
+
+Das gesamte Template sieht so aus:
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <title>Zahlenraten</title>
+    </head>
+    <body>
+        <div id="page">
+            <div id="pageheader"
+                <h1>Rate die Zahl {{ variant }}</h1>
+            </div>
+            <div id="pagebody">
+                <p>Rate eine Zahl zwischen 1 und 100.</p>
+                <h2>{{ msg }}</h2>
+                <form action="" method="get">
+                {{ hidden|safe }}
+                <p>{{ cnt }}. Rateversuch: <input type="text" size=3 name="guess"></p>
+                <p><i>{{ newmsg }}</i></p>
+                </form>
+            </div>
+            <div id="pageactions">
+                <p>
+                    2011-2016, tobias thelen, public domain - <a href="/">zur&uuml;ck zum Start</a>
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
+
+Jinja2-Template show.tmpl
+```
+
+#### Variante 1: Globales Serverobjekt
+
+Zwar sind im verwendeten Server-Framework die Requests voneinander unabhängig, es gibt jedoch ein durchgängig laufendes Python-Programm mit wiederverwendbaren Zuständen und Objekten. Die erste Idee für einen Zustandsmechanismus ist daher, ein globales Model-Objekt zu verwenden, das zwischen den Requests bestehen bleibt.
+
+Diese Form eines Zustandsmechanismus wird von der Klasse GlobalGuessApp realisiert:
+
+```python
+class GlobalGuessApp(App):
+    """Transport state using a global server object."""
+
+    def register_routes(self):
+        self.add_route("", self.globalGuess)
+
+    def globalGuess(self, request, response, pathmatch):
+        """Controller for number guesser using cookies."""
+
+        global theGuesser
+        if not theGuesser: # no global model object
+            theGuesser = GuessNumberModel() # generate new number
+            newmsg = 'Neue Nummer generiert!'
+        else:
+            newmsg=''
+
+        try: # access guessed number from form
+            guess = int(request.params['guess'])
+        except KeyError:
+            guess = -1
+
+        # evaluate guess
+        (found, msg) = theGuesser.guess(guess)
+
+        if found: # correct guess
+            theGuesser=GuessNumberModel() # new number
+
+        d = {'msg':msg, 'newmsg':newmsg, 'cnt':theGuesser.count+1,
+             'variant':'globales Serverobjekt', 'hidden':''}
+        response.send_template('show.tmpl',d)
+```
+
+Eine globale Variable theGuesser enthält hier ein NumberGuessModel-Objekt, dass zwischen den Aufrufen erhalten bleibt. Bei jedem Rateversuch wird seine Evaluationsmethode aufgerufen und das Ergebnis zum Füllen des Antworttemplates verwendet.
+
+#### Variante 2: Zustandsübergabe per GET
+
+Um die Anwendung für mehrere Nutzer verwendbar zu machen, muss der jeweilige Zustand mit dem Nutzer verknüpft werden. Dies kann in einfacher Weise dadurch geschehen, dass der Zustand im generierten HTML-Formular (in Form versteckter Felder) gespeichert und beim nächsten Request mit übertragen wird.
+
+Diese Form eines Zustandsmechanismus wird von der Klasse GetGuesserApp realisiert:
+
+```python
+class GetGuesserApp(App):
+
+    def register_routes(self):
+        self.add_route("", self.getGuess)
+
+    def getGuess(self, request, response, pathmatch):
+        """Controller for number guesser using hidden GET form fields."""
+
+        try: # access guessed number from form
+            guess = int(request.params['guess'])
+        except KeyError:
+            guess = -1
+
+        try: # retrieve state variables from form
+            num = int(request.params['number'])
+            count = int(request.params['count'])
+        except KeyError: # can't retrieve: new number to guess
+            num = 0
+            count = 0
+
+        g = GuessNumberModel(num, count) # make model object
+        newmsg = 'Neue Nummer generiert!' if num == 0 else ''
+
+        # evaluate guess
+        (found, msg) = g.guess(guess)
+
+        if found: # correct guess: create new number
+            g = GuessNumberModel()
+
+        # always generate hidden fields for state values
+        hidden = "<input type='hidden' name='number' value=%d>\n" % g.num
+        hidden += "<input type='hidden' name='count' value=%d>\n" % g.count
+
+        d = {'msg':msg, 'newmsg':newmsg, 'cnt':g.count+1,
+             'variant':'GET-Parameter', 'hidden':hidden}
+        response.send_template('show.tmpl',d)
+```
+
+Vorteile:
+* mit bisher kennengelernten Mechanismen abbildbar
+
+Nachteile:
+* Zustandswerte werden explizit zum Browser übertragen
+* jeder Link innerhalb der Anwendung muss Statusinformationen mittragen
+* Es ist nicht feststellbar, ob die Werte manipuliert wurden
+* URL-Weitergabe wirft Probleme auf
+
 
 ### Cookies
 
