@@ -5,7 +5,7 @@
   * [Was benötigt eine Template-Engine?](#was-benötigt-eine-template-engine)
   * [Jinja2-Templates](#jinja2-templates)
   * [Logiklose Templates - Mustache](#logiklose-templates---mustache)
-* [Zustände & Cookies](#zustände-cookies)
+* [Zustände & Cookies](#zustände--cookies)
   * [Zustände](#zustände)
   * [Cookies](#cookies)
     * [Was ist in einem Cookie?]('#was-ist-in-einem-cookie)
@@ -73,9 +73,6 @@ Web-Anwendungen erzeugen _dynamisch_ HTML-Code. Dazu gibt es fünf verbreitete V
 Alle fünf Mechanismen werden verwendet, am häufigsten allerdings die relativ mächtigen dedizierten Template-Sprachen (Variante 3), 
 die einen Kompromiss zwischen rigoroser Trennung und arbeitserleichternden Verabeitungsmöglichkeiten auf Template-Ebene darstellen.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 ### Typische Elemente von Webseiten
 
@@ -86,10 +83,6 @@ Einige typische Elemente, die sich auf sehr vielen Webseiten wiederfinden, sind:
 3. Ausgabe von Listen von Werten, z.B. der Liste der vorhandenen Wiki-Seiten aus der Wiki-Aufgabe
 4. Bedingungen um Elemente oder Attribute nur bei Vorliegen definierter Bedingungen auszugeben, z.B. die Zuweisung der `CSS`-Klasse `active` an das jeweils aktive Navigationselement
 5. Komplexe einheitliche Gestaltung wiederkehrender Elemente wie z.B. Nutzernamen mit Profillink und Miniatur-Bild
-
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 ### Was benötigt eine Template-Engine?
 
@@ -103,10 +96,6 @@ Um die Trennung von Logik und Darstellung mit den minimal notwendigen Mechanisme
     * Die Verwendung von Macros, um einzelne wiederkehrende Elemente gleichartig strukturiert darstellen zu können.
 5. Die Unterstützung von Escaping-Routinen, d.h. der Möglichkeit, übergebene Strings ungeschützt auszugeben, so dass darin enthaltener HTML-Code aktiv wird, oder aber zu escapen, so dass enthaltene
    HTML-Sonderzeichen nicht aktiv werden, sondern per Ersatzdarstellung ausgegeben werden.
-
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 ### Jinja2-Templates
 
@@ -154,10 +143,6 @@ Bei genauerer Betrachtung der durch Ausdrücke, Filter, Tests, Statements, Varia
 dass es sich dabei um eine vollwertige, Turing-vollständige Programmiersprache handelt, mit der grundsätzlich beliebige Probleme gelöst werden könnten. 
 Insbesondere ist es aber möglich, Programmlogik in die Templates zu verlagern.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
-
 ### Logiklose Templates - Mustache
 
 Die Grundphilosophie von Mustache-Templates ist ein minimalistischer Ansatz: Die Engine soll alles leisten, was von einer Template-Engine benötigt wird, aber gleichzeitig soll es unmöglich sein, Programmlogik
@@ -200,7 +185,7 @@ Die Ausgabe des Kommas kann dann davon abhängig gemacht werden, dass `last` nic
 
 Für die meisten Anwendungsfälle reicht eine wenig ausdrucksmächtige Engine wie Mustache aus und ist aus systematischen Gründen einer mächtigeren Lösung vorzuziehen.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
+[Zurück nach oben](#kapitel-06-sessions-cookies-templates)
 
 ---
 
@@ -233,13 +218,9 @@ Ein Zusammenhang zwischen aufeinanderfolgenden Requests des gleichen Nutzers kan
 Soll eine Webanwendung dennoch zustandsbehaftet operieren, sind auf höherer Ebene Zustandsmechanismen einzuführen. 
 Für diese Mechanismen gibt es mehrere verbreitete Lösungen, die je nach Anwendungsszenario auszuwählen sind.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
+### Cookies
 
----
-
-## Cookies
-
-### Definition
+#### Definition
 
 Cookies sind ein Mechanismus, mit dem eine Webanwendung Informationen im Browser des Anwenders speichern kann.
 
@@ -253,9 +234,6 @@ Cookies eröffnen Möglichkeiten datenschutzrechtlich fragwürdiger Praktiken.
 Sie stellen allerdings, wie häufig falsch und verkürzend gemutmaßt, per se kein Sicherheitsrisiko für den Anwender dar. 
 Die Verunsicherungen im Umgang mit Cookies versucht [RFC2964](https://tools.ietf.org/html/rfc2964) erklärend und empfehlend zu beseitigen.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 #### Was ist in einem Cookie?
 
@@ -270,9 +248,6 @@ Ein Cookie besteht aus folgenden Informationen:
 * `httpOnly` - Boolean-Angabe, ob der Cookie nur über http-Requests (statt auch per Javascript) verwendet werden darf
 * `secure` - Boolean-Angabe, ob der Cookie nur mit https-Requests ausgeliefert wird (statt auch mit http-Requests)
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 #### Cookies setzen
 
@@ -292,9 +267,6 @@ Werden Attribute nicht gesetzt, gelten folgende Defaultwerte:
 
 Für Cookies gilt eine Größenbeschränkung: Mehr als 4096 Zeichen müssen für einen Wert nicht gespeichert werden.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 #### Cookies löschen
 
@@ -313,10 +285,6 @@ Die auf diese Weise ausgewählten Cookies werden als Teil des HTTP-Request-Heade
 
 Cookie: `#name=#value;...`
 Mehrere zu liefernde Cookies werden mit Semikolon (oder Komma) getrennt in einer Zeile geliefert.
-
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 #### Same-Origin-Policy und Third-Party-Cookies
 
@@ -347,7 +315,7 @@ Als nächstes rufe ich die News-Seite `supernews.de` auf, die Werbeplatz an `tol
 Es wird ein Banner von `tollewerbung` eingebunden, wobei das vorhin empfangene Cookie mitgesandt wird. 
 `tollewerbung` kann anhand der im Cookie abgelegten ID erkennen, dass ich mir zuletzt `turnschub77b` von `schickeschuhe.de` angeschaut habe und blendet mir entsprechende Werbung ein.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
+[Zurück nach oben](#kapitel-06-sessions-cookies-templates)
 
 ---
 
@@ -363,10 +331,6 @@ Daher ist es gängige Praxis, nicht die Werte selbst, sondern nur eine ID für s
 rekonstruieren.
 
 Diese Praxis ist unter dem Namen Session-Handling bekannt, wobei zu beachten ist, den Begriff nicht mit Browser-Sessions zu verwechseln.
-
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
 
 ### Middleware - Konzept
 
@@ -418,7 +382,5 @@ if self.request.parse(conn):
 Die zu verwendenden Middlewares werden in einer Liste im Server-Objekt gespeichert und in der Reihenfolge ihrer Registrierung aufgerufen. 
 Middleware-Objekte haben Zugriff auf das Request- und das Response-Objekt und können somit beliebig in beides eingreifen.
 
-[Zurück nach oben](#kapitel-06:-sessions,-cookies,-templates)
-
----
+[Zurück nach oben](#kapitel-06-sessions-cookies-templates)
 
