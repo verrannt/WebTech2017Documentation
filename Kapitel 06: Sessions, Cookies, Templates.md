@@ -15,7 +15,9 @@
     * [Same-Origin-Policy und Third-Party-Cookies](#same-origin-policy-und-third-party-cookies)
 * [Sessions](#sessions)
   * [Motivation](#motivation)
-  * [Middleware - Konzept](#middleware---konzept)
+  * [Middlewares](#middleware-konzept)
+  * [Session-Middleware](#session-middleware)
+  * [Zahlenraten mit Sessions](#zahlenraten-mit-sessions)
 
 ---
 
@@ -526,7 +528,9 @@ rekonstruieren.
 
 Diese Praxis ist unter dem Namen Session-Handling bekannt, wobei zu beachten ist, den Begriff nicht mit Browser-Sessions zu verwechseln.
 
-### Middleware - Konzept
+### Middlewares
+
+#### Konzept
 
 Eine Middleware stellt eine anwendungsunabhängige Zusatzfunktionalität bereit, ohne fest in den Server-Code integriert werden zu müssen. 
 Middlewares klingen sich zum einen nach dem Parsen des Requests, aber vor der Verarbeitung durch eine App-Route in die Verarbeitung ein und zum Anderen nach der App-Route aber vor Ausliefern der Response.
@@ -535,7 +539,7 @@ Die Verarbeitung von Sessions ist ein typischer Fall für eine Webserver-Middlew
 Sie wird nicht immer benötigt und kann auf sehr unterschiedliche Weise realisiert werden, z.B. durch unterschiedliche Persistenz-Speicher (Dateisystem, Datenbank). 
 Daher ist es nicht möglich, sie wie die Cookie-Verarbeitung im Kern zu integrieren.
 
-### Middleware-Implementation
+#### Implementation
 
 Middleware-Objekte implementieren eine oder beide der Methoden `process_request` und `process_response`. 
 Für die Verarbeitung müssen die Verarbeitung und das Routing in der Methode `serve` des Webserver-Objektes ergänzt werden:
@@ -575,6 +579,70 @@ if self.request.parse(conn):
 
 Die zu verwendenden Middlewares werden in einer Liste im Server-Objekt gespeichert und in der Reihenfolge ihrer Registrierung aufgerufen. 
 Middleware-Objekte haben Zugriff auf das Request- und das Response-Objekt und können somit beliebig in beides eingreifen.
+
+### Session-Middleware
+
+Die SessionMiddleware ist dafür verantwortlich, anhand von Session-Cookies Daten aus einem persistenten Speicher auszulesen und wieder abzulegen. Im Enzelnen sind das folgende Schritte:
+ 
+* __process_request:__
+  * Session-Cookie auslesen, falls vorhanden
+  * Session aus persitentem Speicher lesen
+  * Session-Daten über das request-Objekt bereitstellen
+* __process_response:__
+  * Session-Daten in den persistenten Speicher schreiben
+  * Session-Cookie setzen
+
+Als persistenter Speicher wird hier das Dateisystem verwendet, zur Speicherung beliebiger Python-Daten wird das Python-Standard-Modul pickle verwendet, das Daten serialisiert bzw. deserialisiert. Die serialisierten Daten werden dann binär in einer Datei gespeichert. Der Dateiname ist mit der Session-ID identisch.
+
+Der Code findet sich [im öffentlichen Kursrepository](https://github.com/tthelen/webtech17-public/) unter [diesem Link](https://github.com/tthelen/webtech17-public/blob/master/code/woche06/server/middlewares/session.py).
+              
+
+### Zahlenraten mit Sessions
+
+In der letzten Zahlen-Rate-App wird ein vollständiges `GuessNumberModel` in der Session gespeichert. Somit kann dieses einen Zustand repräsentierendes Objekt ohne Konvertierung, Initialisierung etc. verwendet werden.
+
+Wird die Nummer erraten, wird die Methode `session.renew()` verwendet, um ein frisches Session-Objekt mit neuer ID und ohne Daten zu erzeugen. Ein neu erzeugtes Model mit neu gewürfelter Ratezahl wird dann in diesem Objekt gespeichert.
+ 
+```python
+class SessionGuesserApp(App):
+
+    def register_routes(self):
+        self.add_route("", self.sessionGuess)
+
+    def sessionGuess(self,request, response, pathmatch):
+        """Controller for number guesser using cookies."""
+
+        try: # access guessed number from form
+            guess = int(request.params['guess'])
+        except KeyError:
+            guess = -1
+
+        try:
+            g = request.session['guesser']
+        except KeyError:
+            request.session.renew()
+            g = GuessNumberModel()
+            request.session['guesser'] = g
+            newmsg = 'Neue Nummer generiert!'
+        else:
+            newmsg = ''
+
+        (found, msg) = g.guess(guess)
+        if found: # destroy session
+            # new session and number will be generated next time
+            request.session.renew()
+            count = 1
+        else:
+            # pass sessid id to hidden input field
+            count = g.count + 1
+
+        d = {'msg':msg, 'newmsg':newmsg, 'cnt':count,
+             'variant':'Session per Cookie', 'hidden':''}
+        response.send_template('show.tmpl',d)
+```
+
+
+
 
 [Zurück nach oben](#kapitel-06-sessions-cookies-templates)
 
