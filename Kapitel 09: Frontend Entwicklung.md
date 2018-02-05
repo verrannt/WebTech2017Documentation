@@ -52,9 +52,10 @@ Die wichtigsten Stationen waren:
 
 ### Lodash
 
-Die Javascript-Standardbibliothek ist nicht besonders umfangreich. Der Umgang mit eingebauten Datentypen, sowie Funktionen und Objekten ist an vielen Stellen unnötig kompliziert. Die verbreitete Bibliothek underscore.js rüstet einige hilfreiche Methoden nach, die eine modernere und direktere Programmierung ermöglichen.
+Die Javascript-Standardbibliothek ist nicht besonders umfangreich. Der Umgang mit eingebauten Datentypen, sowie Funktionen und Objekten ist an vielen Stellen unnötig kompliziert. 
+Die verbreitete Bibliothek [`underscore.js`](https://underscorejs.org)  rüstet einige hilfreiche Methoden nach, die eine modernere und direktere Programmierung ermöglichen.
 
-Alles weitere zu dieser Bibliothek findet sich unter https://lodash.com/.
+Alles weitere zu dieser Bibliothek findet sich unter [`loadsh`](https://lodash.com/).
 
 **Beispiele:**
 ```html
@@ -95,9 +96,14 @@ Alle Ausgaben als Alerts.
 
 ### jQuery
 
-[jQuery](https://jquery.com) ist die bekannteste und am weisteten verbreitete Javascript-Bibliothek. Sie erleichtert vor allem den Umgang mit der **DOM-API**, bietet einfache Effekte und Animationen und nivelliert Browser-Unterschiede. Mitte der 2000er Jahre waren diese beiden Aspekte noch sehr viel wichtiger als heute, so dass es lange Zeit kaum vorstellbar war, ohne jQuery clientseitig nicht-triviale Programme zu schreiben. Im Wettbewerb mit mehreren anderen Bibliotheken mit vergleichbaren Zielen (z.B. Dojo, Prototype + Scriptaculous) hat sich jQuery wegen der konsistenten API und der hervorragenden Dokumentation durchgesetzt.
+[jQuery](https://jquery.com) ist die bekannteste und am weisteten verbreitete Javascript-Bibliothek. 
+Sie erleichtert vor allem den Umgang mit der **DOM-API**, bietet einfache Effekte und Animationen und nivelliert Browser-Unterschiede. 
+Mitte der 2000er Jahre waren diese beiden Aspekte noch sehr viel wichtiger als heute, so dass es lange Zeit kaum vorstellbar war, ohne _jQuery_ clientseitig nicht-triviale Programme zu schreiben. 
+Im Wettbewerb mit mehreren anderen Bibliotheken mit vergleichbaren Zielen (z.B. Dojo, Prototype + Scriptaculous) hat sich jQuery wegen der konsistenten API und der hervorragenden Dokumentation durchgesetzt.
 
-Verbreitete Bibliotheken wie jQuery können entweder heruntergeladen und dann vom lokalen Webserver ausgeliefert werden, oder über ein "Content Delivery Network" (CDN) eingebunden werden. Letzteres bietet vor allem den Vorteil, dass evtl. andere Webseiten die Bibliothek schon vorher eingebunden haben und sie daher aus dem Cache ausliefern können, aber ggf. auch datenschutzrechtliche Nachteile, da Cookies mitgeliefert werden seitenübergreifendes Tracking erleichtert wird.
+Verbreitete Bibliotheken wie jQuery können entweder heruntergeladen und dann vom lokalen Webserver ausgeliefert werden, oder über ein "_Content Delivery Network_" (CDN) eingebunden werden. 
+Letzteres bietet vor allem den Vorteil, dass evtl. andere Webseiten die Bibliothek schon vorher eingebunden haben und sie daher aus dem Cache ausliefern können, 
+aber ggf. auch datenschutzrechtliche Nachteile, da Cookies mitgeliefert werden, die seitenübergreifendes Tracking erleichtert wird.
 
 Im Beispielcode wird eine Liste mit Personennamen dargestellt, aus der einzelne Personen gelöscht werden können und zu denen Personen hinzugefügt werden können:
 
@@ -147,22 +153,31 @@ Im Beispielcode wird eine Liste mit Personennamen dargestellt, aus der einzelne 
 
 ### Script-Tags
 
-Die einzige Möglichkeit, Javascript-Code zu laden besteht darin, ein entsprechendes Script-Tag mit src-Attribut im HTML-Quelltext bzw. im DOM zu platzieren. Dieses System ist relativ unflexibel und unterstützt die Modularisierung von Quellcode und die Deklaration von Abhängigkeiten nur sehr schlecht. Insbesondere gibt es damit nämlich auch keine einfache Möglichkeit, aus Javascript-Code heraus Javascript-Code, z.B. eine Bibliothek, nachzuladen.
+Die einzige Möglichkeit, Javascript-Code zu laden besteht darin, ein entsprechendes Script-Tag mit `src`-Attribut im HTML-Quelltext bzw. im DOM zu platzieren. 
+Dieses System ist relativ unflexibel und unterstützt die Modularisierung von Quellcode und die Deklaration von Abhängigkeiten nur sehr schlecht. 
+Insbesondere gibt es damit nämlich auch keine einfache Möglichkeit, aus Javascript-Code heraus Javascript-Code, z.B. eine Bibliothek, nachzuladen.
 
 #### Variante 1: Korrekte Reihenfolge
-Die Script-Dateien werden in der Reihenfolge ihres Auftretens im HTML-Quelltext ausgeführt. Bestehen dabei Abhängigkeiten zwischen den Dateien, ist es wichtig, sie in der richtigen Reihenfolge zu laden.
+Die Script-Dateien werden in der Reihenfolge ihres Auftretens im HTML-Quelltext ausgeführt. 
+Bestehen dabei Abhängigkeiten zwischen den Dateien, ist es wichtig, sie in der richtigen Reihenfolge zu laden.
 
 #### Variante 2: DOMContentLoaded-Event
-Wenn der DOM-Tree fertig konstruiert ist, wird das DOMContentLoaded-Event ausgelöst. Zu diesem Zeitpunkt sind alle eingebundene Javascript-Dateien eingelesen und ausgeführt. Code, der von anderen JS-Dateien abhängig ist, sollte auch in einem DOMContentLoaded-Event-Handler ausgeführt werden.
+Wenn der DOM-Tree fertig konstruiert ist, wird das `DOMContentLoaded`-Event ausgelöst. 
+Zu diesem Zeitpunkt sind alle eingebundene Javascript-Dateien eingelesen und ausgeführt. 
+Code, der von anderen JavaScript-Dateien abhängig ist, sollte auch in einem `DOMContentLoaded`-Event-Handler ausgeführt werden.
 
 #### Variante 3: Dynamisches Nachladen von Scripts
-Die einzige Möglichkeit, eine Javascript-Datei dynamisch nachzuladen ist es, ein Script-Tag dynamisch in den DOM-Tree einzufügen. Dieses wird dann ausgewertet, d.h. die Datei eingelesen und ausgeführt. Dafür wird aber nicht die Ausführung des aktuellen Skriptes unterbrochen, sondern erst, wenn die Javascript-Event-Loop wieder die Kontrolle bekommt, kommt der Code zur Ausführung. Möchte man anschließend eine Aktion ausführen, steht dafür das load-Event des Script-Elementes zur Verfügung.
+Die einzige Möglichkeit, eine Javascript-Datei dynamisch nachzuladen ist es, ein Script-Tag dynamisch in den DOM-Tree einzufügen. 
+Dieses wird dann ausgewertet, d.h. die Datei eingelesen und ausgeführt. 
+Dafür wird aber nicht die Ausführung des aktuellen Skriptes unterbrochen, sondern erst, wenn die JavaScript-Event-Loop wieder die Kontrolle bekommt, kommt der Code zur Ausführung. 
+Möchte man anschließend eine Aktion ausführen, steht dafür das `load`-Event des Script-Elementes zur Verfügung.
 
 ### Das Module-Pattern
 
-Das Problem der "Namensraumverschmutzung" (Namespace Pollution) wird in Javascript typischerweise durch das Module Pattern umgangen. Dieses Programmier-Pattern verwendet eine sofort ausgeführte anonyme Funktion, die alle für das aktuelle Modul (d.h. die aktuelle Datei globalen Variablen als lokale Variablen verkapselt.
+Das Problem der "Namensraumverschmutzung" (Namespace Pollution) wird in JavaScript typischerweise durch das Module Pattern umgangen. 
+Dieses Programmier-Pattern verwendet eine sofort ausgeführte anonyme Funktion, die alle für das aktuelle Modul (d.h. die aktuelle Datei globalen Variablen als lokale Variablen verkapselt.
 
-Hier die Datei util.js mit den meisten Features des Module Patterns:
+Hier die Datei `util.js` mit den meisten Features des Module Patterns:
 
 ```javascript
 var util = (function () {
@@ -184,7 +199,7 @@ var util = (function () {
 
 Die Datei stellt somit ein Objekt bereit, dass unter dem globalen Namen util angesprochen wird (hier bestehen natürlich dann weiterhin Konfliktmöglichkeiten), das über eine Methode util_func verfügt. Alle weiteren Variablen und andere Namen des Moduls werden durch die anonyme Funktion aus dem globalen Namensraum herausgehalten. Wichtig ist, dass diese Funktion sofort ausgeführt wird und zu exportierende Funktionalitäten als Objekt zurückliefert. (Das muss nicht zwingend ein Objekt sein, möglich wäre z.B. auch eine Funktion, Objekte sind aber üblich, weil sie mehrere Methoden aufweisen können und die Aufrufsyntax util.util_func durchaus an ein Modulsystem erinnert.)
 
-Weitere Informationen gibt der großartige Blogbeitrag von Ben Cherry unter http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html
+Weitere Informationen gibt der großartige [Blogbeitrag](http://www.adequatelygood.com/JavaScript-Module-Pattern-In_Depth.html) von Ben Cherry.
 
 ### CommonJS, require.js und AMD-Module
 

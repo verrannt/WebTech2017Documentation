@@ -28,8 +28,8 @@ Die Idee ist, dass man eine solche Unit nimmt und in eine Testvorrichtung "einsp
 **Wichtig** sind Unit-Tests vorallem bei dynamischen Programmiersprachen, da hier Dinge wie Compilerfehler und Typenchecks entfallen.
 
 Es geht darum, **vergleichbare Bedingungen** zu schaffen:
-Echtdaten (realistischer, dafür aber kompliziertere Tests)
-Testdaten (einfacher, dafür weniger realistisch)
+* Echtdaten (realistischer, dafür aber kompliziertere Tests)
+* Testdaten (einfacher, dafür weniger realistisch)
 
 [Zurück nach oben](#kapitel-8-tests-und-sicherheit)
 
@@ -96,21 +96,23 @@ Man erkennt schon ein ähnliches Muster wie bei der SQL-Injection: Wenn es nun g
 
 Mögliche Angriffsstrings sehen dann wie folgt aus:
 
-1. grep "root" log/access.log etc/passwd # "/log access.log
+1. `grep "root" log/access.log etc/passwd # "/log access.log`
 
-2. grep "egal" log/access.log ; cat ../config_database_password.py # " log/access.log
+2. `grep "egal" log/access.log ; cat ../config_database_password.py # " log/access.logi`
 
-3. grep "egal" log/access.log ; rm -rf data
+3. `grep "egal" log/access.log ; rm -rf data`
 
-Genau wie bei der SQL-Injection wird hier ein komplexer String an die Stelle des Kommandos gesetzt, die eigentlich nur für einen Suchbegriff vorgesehen war. Der Rest des Strings, den Python immer anhängt (hier: " log/access.log") kann man per Kommentar-Einleitung (hier: #) quasi "ausschalten".
-
+Genau wie bei der SQL-Injection wird hier ein komplexer String an die Stelle des Kommandos gesetzt, die eigentlich nur für einen Suchbegriff vorgesehen war. Der Rest des Strings, den Python immer anhängt (hier: ` log/access.log`) kann man per Kommentar-Einleitung (hier: `#`) quasi "ausschalten".
+  
 #### Beispiel 2: Manipulation von in einer Datei gespeicherten Nutzerdaten
 
-Eine Webanwendung verwaltet ihre Benutzer in einer Textdatei, die die Informationen: Benutzername, Passwort, E-Mail-Adresse, Rechtestufe enthält. Mit "Rechtestufe" ist eine Einstufung als normaler Nutzer (Wert "user") oder als Administrator mit erweiterten Rechten gemeint (Wert "admin"). Die Werte werden durch `:` getrennt.
+Eine Webanwendung verwaltet ihre Benutzer in einer Textdatei, die die Informationen: Benutzername, Passwort, E-Mail-Adresse sowie Rechtestufe enthält. 
+Mit "Rechtestufe" ist eine Einstufung als normaler Nutzer (Wert `user`) oder als Administrator mit erweiterten Rechten gemeint (Wert `admin`). Die Werte werden durch `:` getrennt.
 
 > tobias:a3ee7692bcf323a90b87:tobias.thelen@uni-osnabrueck.de:user
 
-Die Anwendung enthält eine Funktion, mit der jeder Nutzer seine E-Mail-Adresse ändern kann. Ein Special-Character-Injection-Angriff könnte z.B. nun versuchen, die E-Mail-Adresse von Tobias auf folgenden Wert zu setzen:
+Die Anwendung enthält eine Funktion, mit der jeder Nutzer seine E-Mail-Adresse ändern kann. 
+Ein Special-Character-Injection-Angriff könnte z.B. nun versuchen, die E-Mail-Adresse von Tobias auf folgenden Wert zu setzen:
 
 > tobias.thelen@uni-osnabrueck.de:admin
 
@@ -127,7 +129,8 @@ Der Angriff zielt auf den Server.
 Präparierte Eingaben (Request-Parameter, URL-Bestandteile)
 
 #### Gegenmaßnahmen
-* Eingabevalidierung: Bei der Entgegennahme der Eingabe per Request-Parameter oder URL-Bestandteil sollte so streng und genau wie möglich geprüft werden, ob die Eingabe der erwarteten Form entspricht. Im Fall des Suchbegriffes könnten z.B. nur alphanumerische Zeichen erlaubt werden, bei der E-Mail-Adresse nur alphanumerische Zeichen, @, - und . (bzw. ein regulärer Ausdruck, der gültige E-Mail-Adressen erkennt).
+* Eingabevalidierung: Bei der Entgegennahme der Eingabe per Request-Parameter oder URL-Bestandteil sollte so streng und genau wie möglich geprüft werden, ob die Eingabe der erwarteten Form entspricht. 
+  Im Fall des Suchbegriffes könnten z.B. nur alphanumerische Zeichen erlaubt werden, bei der E-Mail-Adresse nur alphanumerische Zeichen, @, - und . (bzw. ein regulärer Ausdruck, der gültige E-Mail-Adressen erkennt).
 * Konstruktvalidierung: Nach oder bei der Konstruktion des auszuführenden Codes bzw. der zu schreibenden Zeile sollte geprüft werden, ob sie der erwarteten Form entspricht.
 
 
@@ -147,10 +150,11 @@ In die Datenbank des Servers müssen manipulierte Strings eingeschleust werden, 
 ### Session-Hijacking
 
 #### Angriffsziel
-Der Angreifer versucht, eine gültige Session-ID zu bekommen und diese zu verwenden, um die Session des Nutzers zu übernehmen ("Session riding").
+Der Angreifer versucht, eine gültige Session-ID zu bekommen und diese zu verwenden, um die Session des Nutzers zu übernehmen ("_Session riding_").
 
 #### Angriffsvektor
-Ein typischer Angriffsvektor für einen clientseitigen Angriff nutzt eine bestehende XSS-Lücke aus, um aktives Javascript einzuschleusen. Der Javascript-Code liest dann die Session-ID aus und überträgt sie z.B. mit einem GET-Request an einen vom Angreifer kontrollierten Server, der die Session-ID dann an einen Client übergeben kann, der im Namen des angegriffenen Nutzers agiert.
+Ein typischer Angriffsvektor für einen clientseitigen Angriff nutzt eine bestehende XSS-Lücke aus, um aktives Javascript einzuschleusen. 
+Der _Javascript_-Code liest dann die Session-ID aus und überträgt sie z.B. mit einem GET-Request an einen vom Angreifer kontrollierten Server, der die Session-ID dann an einen Client übergeben kann, der im Namen des angegriffenen Nutzers agiert.
 
 Andere Angriffsvektoren können aber auch serverseitig aktiv werden und z.B. die Session-Dateien auslesen oder eine Session-Datenbank anzapfen.
 

@@ -282,7 +282,11 @@ app.use(passport.session());
 
 #### Zusätzliche Routen
 
-Das explizite Login und Logout benötigen neue Routen. Die /login-Route wird sowohl per GET als auch per POST angesprochen, im ersten Fall für die Anzeige des Login-Fomulars (dafür wird ein Request-Handler loginview angelegt) und im zweiten für das Überprüfen der Authentifizierungsdaten inkl. Einrichten der Session. Dieser Schritt wird von einer Funktion des Passport-Frameworks übernommen. Diese Funkion erwartet Nutzername und Passwort im Request-Body unter den Schlüsseln username und password. (Abweichungen können konfiguriert werden)
+Das explizite Login und Logout benötigen neue Routen. 
+Die `/login`-Route wird sowohl per `GET` als auch per `POST` angesprochen, im ersten Fall für die Anzeige des Login-Fomulars (dafür wird ein Request-Handler `loginview` angelegt) 
+und im zweiten für das Überprüfen der Authentifizierungsdaten inkl. Einrichten der Session. 
+Dieser Schritt wird von einer Funktion des Passport-Frameworks übernommen. 
+Diese Funkion erwartet Nutzername und Passwort im Request-Body unter den Schlüsseln `username` und `password`. (Abweichungen können konfiguriert werden)
 
 ```javascript
 // show login page
@@ -304,7 +308,9 @@ app.get('/logout',
 ```
 
 #### Absicherung der zu schützenden Routen
-Die Edit- und Save-Route müssen nun abgesichert werden. Das ensure-login-Plugin bietet dafür eine Funktion ensureLoggedIn(redirectTarget), die als Request-Handler genutzt werden kann. In der Konfiguration einer Route können mehrere Request-Handler angegeben werden, die die Kontrolle per Aufruf von next() jeweils an den nächsten Handler weiterreichen können.
+Die Edit- und Save-Route müssen nun abgesichert werden. 
+Das `ensure-login`-Plugin bietet dafür eine Funktion `ensureLoggedIn(redirectTarget)`, die als Request-Handler genutzt werden kann. 
+In der Konfiguration einer Route können mehrere Request-Handler angegeben werden, die die Kontrolle per Aufruf von `next()` jeweils an den nächsten Handler weiterreichen können.
 
 ```javascript
 function savewikitext(req, res, next) {
@@ -318,15 +324,17 @@ app.post('/save/:page(\\w+)', savewikitext, ensureLoggedIn('/login'), save);
 app.get('/save/:page(\\w+)', function (req, res) { res.redirect('/edit/'+req.params['page']); });
 ```
 
-Leider gibt es ein Problem mit der save-Route: Nach erfolgreichem Login sendet Passport eine Redirect-Response, die per GET ausgeführt wird. Das Ziel des Redirects wird in der Session abgelegt und von dort abgerufen. POST-Parameter werden damit nicht mitgesichert.
+Leider gibt es ein Problem mit der `save`-Route: Nach erfolgreichem Login sendet Passport eine Redirect-Response, die per `GET` ausgeführt wird. 
+Das Ziel des Redirects wird in der Session abgelegt und von dort abgerufen. 
+`POST`-Parameter werden damit nicht mitgesichert.
 
 Hier wird nun folgende Lösung verfolgt:
-1. Bevor eine POST-Aktion auf /save geprüft wird, wird der POST-Parameter wikitext in die Session geschrieben (savewikitext)
-2. Ist der Nutzer bereits authentifiziert, wird save ausgeführt und der Session-Eintrag wieder gelöscht.
-3. Ist er noch nicht authentifiziert, bekommt er ein Login-Formular präsentiert und wird anschließend auf GET /edit weitergeleitet, damit der Text nochmal zum Editieren/Absenden angezeigt.
+1. Bevor eine `POST`-Aktion auf `/save` geprüft wird, wird der `POST`-Parameter `wikitext` in die Session geschrieben (`savewikitext`)
+2. Ist der Nutzer bereits authentifiziert, wird `save` ausgeführt und der Session-Eintrag wieder gelöscht.
+3. Ist er noch nicht authentifiziert, bekommt er ein Login-Formular präsentiert und wird anschließend auf `GET /edit` weitergeleitet, damit der Text nochmal zum Editieren/Absenden angezeigt.
 4. Dazu muss der Edit-Handler so modifiziert werden, dass der anzuzeigende Text - falls vorhanden - aus der Session rekonstruiert wird, ansonsten aus der Datei gelesen wird.
 
-Damit sehen edit und save wie folgt aus:
+Damit sehen `edit` und `save` wie folgt aus:
 
 ```javascript
 // show wiki page for editing
@@ -365,9 +373,13 @@ function save(req, res, next) {
 
 #### In welchen Situationen ist asynchrone Server-Programmierung besonders hilfreich?
 
-Die bisher betrachteten node.js-Beispiele haben im Wesentlichen die gleichen Funktionalitäten wie die Python-Lösung umgesetzt. Es gibt aber Situationen, in denen asynchrone Server-Programmierung einen erheblichen qualitativen Mehrwert gegenüber synchronen liefert.
+Die bisher betrachteten `node.js`-Beispiele haben im Wesentlichen die gleichen Funktionalitäten wie die Python-Lösung umgesetzt. 
+Es gibt aber Situationen, in denen asynchrone Server-Programmierung einen erheblichen qualitativen Mehrwert gegenüber synchronen liefert.
 
-Dies sind vor allem Situationen, in denen es viele, lang laufende aber geringe Last erzeugende Requests gibt, d.h. der Server viel Zeit mit Warten bei offenen Verbindungen verbraucht. Bei synchronem, blockierenden I/O blockiert jeder wartende Request einen Thread. Ein typischer Webserver kann mehrere hundert solcher Threads parallel verwalten, aber nicht deutlich mehr. Ein node.js-Server kommt aber problemlos mit mehr als 10.000 offenen Verbindungen zurecht, wenn diese keine nennenswerte Last erzeugen.
+Dies sind vor allem Situationen, in denen es viele, lang laufende aber geringe Last erzeugende Requests gibt, d.h. der Server viel Zeit mit Warten bei offenen Verbindungen verbraucht. 
+Bei synchronem, blockierenden I/O blockiert jeder wartende Request einen Thread. 
+Ein typischer Webserver kann mehrere hundert solcher Threads parallel verwalten, aber nicht deutlich mehr. 
+Ein `node.js`-Server kommt aber problemlos mit mehr als 10.000 offenen Verbindungen zurecht, wenn diese keine nennenswerte Last erzeugen.
 
 Typische Anwendungen, die von dieser Möglichkeit profitieren, sind:
 
@@ -376,17 +388,30 @@ Typische Anwendungen, die von dieser Möglichkeit profitieren, sind:
 * in Echtzeit zu aktualisierende Informationen (Börsenkurse, eBay-Preise)
 
 #### AJAX-Long-Polling
-Die http-Standard-Technologie, die für Echtzeitbenachrichtigungen eingesetzt wird, ist AJAX Long Polling. Dabei wird ein Request an den Server geschickt, aber erst dann beantwortet, wenn neue Informationen vorliegen, z.B. ein Preis sich ändern, eine Nachricht eingeht oder jemand Neues den Chat-Raum betritt. In diesem Fall nimmt der Client die Antwort entgegen und stellt sofort einen neuen Request. Auf diese Weise kann der Server bestimmen, wann Informationen übermittelt werden, auch wenn er die Kommunikation nicht selbst etablieren kann. Diese Technologie verbraucht aber pro Nutzer dauerhaft eine Verbindung und ist für synchrones I/O in der Regel schlecht geeignet. Aber auch mit asnychronem Server-I/O bleibt sie eine Notlösung.
+Die http-Standard-Technologie, die für Echtzeitbenachrichtigungen eingesetzt wird, ist _AJAX Long Polling_. 
+Dabei wird ein Request an den Server geschickt, aber erst dann beantwortet, wenn neue Informationen vorliegen, z.B. ein Preis sich ändern, eine Nachricht eingeht oder jemand Neues den Chat-Raum betritt. 
+In diesem Fall nimmt der Client die Antwort entgegen und stellt sofort einen neuen Request. 
+Auf diese Weise kann der Server bestimmen, wann Informationen übermittelt werden, auch wenn er die Kommunikation nicht selbst etablieren kann. 
+Diese Technologie verbraucht aber pro Nutzer dauerhaft eine Verbindung und ist für synchrones I/O in der Regel schlecht geeignet. 
+Aber auch mit asnychronem Server-I/O bleibt sie eine Notlösung.
 
 #### Bidirektional nutzbare stehende TCP-Verbindung
-Ideal für die oben skizzierten Zwecke wäre eine stehende, beliebig nutzbare bidirektionale TCP-Verbindung. Grundsätzlich gibt es eine solche Verbindung zwischen Client und Server, nämlich die für den Austausch von http-Messages genutzte Verbindung. Allerdings erwarten beide Seiten wohlgeformte HTTP-Nachrichten in der richtigen Reihenfolge.
+Ideal für die oben skizzierten Zwecke wäre eine stehende, beliebig nutzbare bidirektionale TCP-Verbindung. 
+Grundsätzlich gibt es eine solche Verbindung zwischen Client und Server, nämlich die für den Austausch von http-Messages genutzte Verbindung. 
+Allerdings erwarten beide Seiten wohlgeformte HTTP-Nachrichten in der richtigen Reihenfolge.
 
-Das Websocket-Protokoll ist ein Protokoll, das wie http eine Anwendungsschicht auf TCP-Basis definiert. Websocket-Nachrichten haben aber nur einen sehr kleinen Protokoll-Teil und sind in beide Richtungen identisch. Mit ihnen lassen sich von beiden Seiten aus jederzeit beliebige Daten an den anderen Kommunikationspartner übertragen.
+Das Websocket-Protokoll ist ein Protokoll, das wie http eine Anwendungsschicht auf TCP-Basis definiert. 
+Websocket-Nachrichten haben aber nur einen sehr kleinen Protokoll-Teil und sind in beide Richtungen identisch. 
+Mit ihnen lassen sich von beiden Seiten aus jederzeit beliebige Daten an den anderen Kommunikationspartner übertragen.
 
-Es gibt eine Möglichkeit, eine bereits etablierte http-Verbindung "umzuwidmen" und als Websocket-Verbindung weiterzunutzen. Dazu sendet der Client einen Request mit dem Header-Feldern "Connection: Upgrade" und "Upgrade: Websocket" sowie einigen Websocket-Parametern. Der Server antwortet mit dem Status-Code "101 Switchin Protocols" und einer Wiederholung der beiden Headerfelder. Nach dieser http-Nachricht wird die bestehende Verbindung für Websocket-Kommunikation genutzt.
+Es gibt eine Möglichkeit, eine bereits etablierte http-Verbindung "umzuwidmen" und als Websocket-Verbindung weiterzunutzen. 
+Dazu sendet der Client einen Request mit dem Header-Feldern `Connection: Upgrade` und `Upgrade: Websocket` sowie einigen Websocket-Parametern. 
+Der Server antwortet mit dem Status-Code _101 Switchin Protocols_ und einer Wiederholung der beiden Headerfelder. 
+Nach dieser http-Nachricht wird die bestehende Verbindung für Websocket-Kommunikation genutzt.
 
 #### Socket.IO
-Wir verwenden im Folgenden eine Bibliothek, die beidseitig initiierbare Real-Time-Kommunikation zwischen Client und Server ermöglicht. Dazu definiert Socket.IO ein eigenes Protokoll, dass die jeweils bestverfügbare Technologie (Web-Sockets oder AJAX Long Polling) einsetzt.
+Wir verwenden im Folgenden eine Bibliothek, die beidseitig initiierbare Real-Time-Kommunikation zwischen Client und Server ermöglicht. 
+Dazu definiert _Socket.IO_ ein eigenes Protokoll, dass die jeweils bestverfügbare Technologie (Web-Sockets oder AJAX Long Polling) einsetzt.
 
 Socket.IO-Nachrichten (oder -Events) bestehen aus zwei Teilen:
 1. Event-Typ (string)
@@ -396,11 +421,13 @@ Auf diese Weise ist es möglich, eine eventbasierte bidirektionale Client-Server
 
 ### Chat-Server mit Socket.IO
 
-In diesem Beispiel wird ein einfacher Chat-Server in node.js und clientseitigem Javascript implementiert, der Chat-Nachrichten sehr schnell an alle Teilnehmer verteilt und auch in genau dieser Form für tausende von Teilnehmern nutzbar ist. Dazu wird die Bibliothek socket.io verwendet, die ein kleines eventbasiertes Kommunikationsprotokoll implementiert und dazu Websockets (oder, falls nicht verfügbar, Ajax Long Polling) verwendet.
+In diesem Beispiel wird ein einfacher Chat-Server in `node.js` und clientseitigem Javascript implementiert, der Chat-Nachrichten sehr schnell an alle Teilnehmer verteilt und auch in genau dieser Form für tausende von Teilnehmern nutzbar ist. 
+Dazu wird die Bibliothek `socket.io` verwendet, die ein kleines eventbasiertes Kommunikationsprotokoll implementiert und dazu Websockets (oder, falls nicht verfügbar, Ajax Long Polling) verwendet.
 
 #### Deployment
 
-Die Anwendung nutzt node.js für den Server und webpack für die Zusammenführung des Client-Codes. npm wird zum Installieren von Paketen und zum Starten des Build-Prozesses und der Anwendung genutzt.
+Die Anwendung nutzt `node.js` für den Server und `webpack` für die Zusammenführung des Client-Codes. 
+`npm` wird zum Installieren von Paketen und zum Starten des Build-Prozesses und der Anwendung genutzt.
 
 ```
 npm install (einmalig)
@@ -447,6 +474,7 @@ $(document).ready(function(){
   window.setInterval(function () { $('#numclients').load('/numclients'); }, 5000);
 });
 ```
+
 #### Server-Code (server.js)
 ```javascript
 // express.js uses the builtin http library
