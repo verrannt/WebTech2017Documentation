@@ -1,12 +1,16 @@
-# Kapitel 02: http und URIs
+# Kapitel 02: HTTP und URIs
 
 * [Uniform Ressource Identifiers](#uniform-ressource-identifiers)
   * [Syntax](#syntax)
   * [Requests for Comments](#requests-for-comments)
   * [Character Encoding](#character-encoding)
   * [Schemata](#schemata)
-* [http](#http)
-  * [http zu Fuß](#http-zu-fuß)
+  * [HTTP URIs](#http-uris)
+* [HTTP](#http)
+  *[HTTP-Anwendungen als Client-Server-Anwendungen](#http-anwendungen-als-client-server-anwendungen)
+  * [HTTP zu Fuß](#http-zu-fuß)
+
+---
 
 ## Uniform Ressource Identifiers
 
@@ -21,6 +25,10 @@
 * __Uniformity__: URIs können mit einheitlichen Verarbeitungsmechanismen behandelt werden, unabhängig von Inhalt und Zielsetzung der URIs.
 * __Ressource__: Ressourcen können beliebige Online- und Offline-Ressourcen sein: Dokumente, Services, Personen, Telefonnummern, abstrakte Konzepte, ...
 * __Identifier__: Identifikation dient dazu, die Ressource eindeutig zu bezeichnen. Sie muss dadurch weder definiert, noch in einzelnen ihrer Eigenschaften beschrieben werden.
+
+[Zurück nach oben](#kapitel-02-http-und-uris)
+
+---
 
 ### Syntax
 
@@ -52,7 +60,11 @@ URNs bezeichnen Objekte, wie z.B. ein Buch per ISBN-Nummer (`urn:isbn:0-486-2755
 URLs bezeichnen den Ort, an dem sich ein Objekt befindet, ohne notwendigerweise ein bestimmtes Objekt zu benennen (`http://www.newbooks.com/latest-entry`, `file:///home/username/RomeoAndJuliet.pdf`). 
 URIs können aber sowohl URNs als auch URLs sein, so dass die Unterscheidung tatsächlich nur konzeptioneller Natur ist.
 
-#### Requests for Comments
+[Zurück nach oben](#kapitel-02-http-und-uris)
+
+---
+
+### Requests for Comments
 
 Requests for Comments (RFCs) spezifizieren die wichtigsten Standards und Technologien für das Internet, also insbesondere auch das Web. 
 RFCs sind Spezifikationen, d.h. sie sind exakt und vollständig, aber leider nicht immer einfach zu lesen.
@@ -159,11 +171,9 @@ schema
 
 ---
 
-## http
+## HTTP
 
-### http-Anwendungen als Client-Server-Anwendungen
-
-Grundbegriffe http
+### HTTP-Anwendungen als Client-Server-Anwendungen
 
 Im Folgenden wird die aktuelle _HTTP-Version 1.1_  vorausgesetzt. 
 
@@ -190,7 +200,7 @@ http ist zustandslos, d.h., dass Nachrichten sich nicht aufeinander beziehen und
 
 ---
 
-### http zu Fuß
+### HTTP zu Fuß
 
 #### telnet als Browser
 
