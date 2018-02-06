@@ -1,17 +1,12 @@
 # Kapitel 3: HTTP Requests und Responses
 
-1. [HTTP Nachrichten](#http-nachrichten)
-2. [HTTP Request](#http-request)
-    1. [HTTP Methoden](#http-methoden)
-    2. [Request Header](#request-header)
-        1. [Host](#host)
-        2. [Accept](#accept)
-        3. [Media-Types](#media-types)
-3. [HTTP Response](#http-response)
-    1. [Status Codes](#status-codes)
-    2. [Response Header](#response-header)
-        1. [Date](#date)
-        2. [Content-Type](#content-type)
+* [HTTP Nachrichten](#http-nachrichten)
+* [HTTP Request](#http-request)
+    * [HTTP Methoden](#http-methoden)
+    * [Request Header](#request-header)
+* [HTTP Response](#http-response)
+    * [Status Codes](#status-codes)
+    * [Response Header](#response-header)
 
 ---
 
