@@ -7,7 +7,7 @@
   * [Schemata](#schemata)
   * [HTTP URIs](#http-uris)
 * [HTTP](#http)
-  *[HTTP-Anwendungen als Client-Server-Anwendungen](#http-anwendungen-als-client-server-anwendungen)
+  * [HTTP-Anwendungen als Client-Server-Anwendungen](#http-anwendungen-als-client-server-anwendungen)
   * [HTTP zu Fuß](#http-zu-fuß)
 
 ---
