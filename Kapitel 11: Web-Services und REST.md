@@ -78,6 +78,7 @@ Die Beispielanwendung in diesem Kapitel ist ein einfaches Interface zu einem Tei
 Die Implementation ist im Code zur Vorlesung unter woche09/file_server_rest.py verfügbar. Zum Testen reicht der normale HTML-Modus des Browsers nicht aus, weil POST-Requests nicht durch URL-Eingabe abgesetzt werden können und PUT- und DELETE-Requests vom Browser gar nicht ohne weiteres erzeugt werden. Es gibt sehr viele unterschiedliche spezielle REST-Clients, entweder als Browser-Plugin oder
 
 Die Routen sind:
+
 |Route 	|Ziel 	|CRUD-Operation 	|Bedeutung|
 |-------|-------|-----------------|---------|
 |GET |/files/ 	|Collection 	|READ 	|Listet alle Dateien auf|
